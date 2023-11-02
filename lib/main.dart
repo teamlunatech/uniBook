@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:uni_book/core/components/appbar/appbar.dart';
+import 'package:uni_book/core/init/constants/color_constants.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,15 +12,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Simple Demo',
+      debugShowCheckedModeBanner: false,
+
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        fontFamily: 'Poppins',
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
+
       home: const SimpleBluePage(),
     );
   }
 }
+
 
 class SimpleBluePage extends StatelessWidget {
   const SimpleBluePage({Key? key}) : super(key: key);
@@ -26,8 +32,20 @@ class SimpleBluePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppBar(
+        title: "UNIBOOK",
+        titleColor:  ColorConstants.secondaryColor,
+        backgroundColor: ColorConstants.primaryColor,
+        leadingAsset: "lib/assets/icons/app_icon.png",
+        actionsIcon: Icons.location_history,
+        actionsIconColor: ColorConstants.secondaryColor,
+        onActionsIconPressed: () {
+
+          print("Actions icon pressed!");
+        },
+      ),
       body: Container(
-        color: Colors.blue,
+        color: Colors.white,
       ),
     );
   }
