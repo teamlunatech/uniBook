@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uni_book/core/components/appbar/appbar.dart';
 import 'package:uni_book/core/init/constants/color_constants.dart';
+import 'core/components/navbar/navbar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -39,14 +40,12 @@ class SimpleBluePage extends StatelessWidget {
         leadingAsset: "lib/assets/icons/app_icon.png",
         actionsIcon: Icons.location_history,
         actionsIconColor: ColorConstants.secondaryColor,
-        onActionsIconPressed: () {
-
-          print("Actions icon pressed!");
-        },
+        onActionsIconPressed: () {},
       ),
       body: Container(
         color: Colors.white,
       ),
+      bottomNavigationBar: CustomBottomNavigationBar(onTabSelected: (int ) {  },),
     );
   }
 }
