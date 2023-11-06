@@ -27,7 +27,7 @@ class SimpleBluePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Colors.blue,
+        color: Colors.white,
       ),
     );
   }
