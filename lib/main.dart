@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uni_book/core/components/appbar/appbar.dart';
 import 'package:uni_book/core/init/constants/color_constants.dart';
+import 'core/components/button/custom_button.dart';
 import 'core/components/navbar/navbar.dart';
 
 void main() {
@@ -42,8 +43,32 @@ class SimpleBluePage extends StatelessWidget {
         actionsIconColor: ColorConstants.secondaryColor,
         onActionsIconPressed: () {},
       ),
-      body: Container(
-        color: Colors.white,
+      body: Center(
+        child: Column(
+          children: [
+            SizedBox(height: 100,),
+          CustomButton(
+          inputText: 'Giriş Yap',
+          style: TextStyle(color: ColorConstants.primaryColor),
+          backgroundColor: ColorConstants.secondaryColor,
+          onPressed: () {
+            print('Butona basıldı!');
+          },
+          wrapText: true,
+          width: 350,
+          height: 60,
+          borderRadius: 20,
+          boxShadow: BoxShadow(
+            color: Colors.grey,
+            blurRadius: 10,
+            offset: Offset(0, 4),
+          ),
+
+
+        ),
+
+          ],
+        ),
       ),
       bottomNavigationBar: CustomBottomNavigationBar(onTabSelected: (int ) {  },),
     );
