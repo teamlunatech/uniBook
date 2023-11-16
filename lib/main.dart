@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uni_book/core/components/appbar/appbar.dart';
+import 'package:uni_book/core/components/button/custom_main_button.dart';
 import 'package:uni_book/core/init/constants/color_constants.dart';
 import 'core/components/button/custom_button.dart';
 import 'core/components/navbar/navbar.dart';
@@ -66,6 +67,22 @@ class SimpleBluePage extends StatelessWidget {
 
 
         ),
+            SizedBox(height: 100,),
+
+            CustomMainButton(
+              backgroundColor: ColorConstants.secondaryColor,
+
+              borderRadius: 8.0,
+              imagePath: 'lib/assets/icons/kitapresmi.png',
+              text1: 'Kitap Adı',
+              text2: 'Kitap Yazarı',
+              text3: 'Kitap Fiyatı ',
+              onPressed: () {
+                print('Custom Button Pressed!');
+              },
+            )
+
+
 
           ],
         ),
