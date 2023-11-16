@@ -80,6 +80,7 @@ class SimpleBluePage extends StatelessWidget {
               onPressed: () {
                 print('Custom Button Pressed!');
               },
+              icon: Icons.favorite,
             )
 
 
