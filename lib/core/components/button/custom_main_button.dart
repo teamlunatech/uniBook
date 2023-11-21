@@ -8,7 +8,7 @@ class CustomMainButton extends StatelessWidget {
   final String text1;
   final String text2;
   final String text3;
-  final IconData? icon; // İkon için yeni bir parametre
+  final IconData? icon; 
   final VoidCallback? onPressed;
 
   CustomMainButton({

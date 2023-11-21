@@ -4,6 +4,7 @@ import 'package:uni_book/core/components/button/custom_main_button.dart';
 import 'package:uni_book/core/init/constants/color_constants.dart';
 import 'core/components/button/custom_button.dart';
 import 'core/components/navbar/navbar.dart';
+import 'core/components/text_field/custom_text_field.dart';
 
 void main() {
   runApp(const MyApp());
@@ -64,6 +65,7 @@ class SimpleBluePage extends StatelessWidget {
             blurRadius: 10,
             offset: Offset(0, 4),
           ),
+
 
 
         ),
