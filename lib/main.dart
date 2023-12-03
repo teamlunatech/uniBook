@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:uni_book/core/components/appbar/appbar.dart';
 import 'package:uni_book/core/components/button/custom_main_button.dart';
 import 'package:uni_book/core/init/constants/color_constants.dart';
+import 'package:uni_book/view/authenticate/girisYap/basarili_giris_ekrani.dart';
 import 'package:uni_book/view/authenticate/girisYap/giris_yap_ekrani.dart';
 import 'package:uni_book/view/welcomepage/welcome_page.dart';
 import 'core/components/button/custom_button.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
 
-      home: const GirisYapEkrani(),
+      home: const BasariliGirisEkrani(),
     );
   }
 }

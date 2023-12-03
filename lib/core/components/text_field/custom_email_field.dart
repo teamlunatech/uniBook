@@ -20,6 +20,7 @@ class _EmailInputFieldState extends State<EmailInputField> {
   Widget build(BuildContext context) {
     return Container(
       color: ColorConstants.primaryColor,
+      height: MediaQuery.sizeOf(context).height/15,
       child: Form(
         key: _formKey,
         child: TextFormField(

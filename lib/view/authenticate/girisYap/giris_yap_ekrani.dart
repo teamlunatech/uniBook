@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:uni_book/core/components/appbar/appbar.dart';
+import 'package:uni_book/core/components/button/clickable_text.dart';
 import 'package:uni_book/core/components/button/custom_button.dart';
 import 'package:uni_book/core/components/text_field/custom_email_field.dart';
+import 'package:uni_book/core/components/text_field/password_input_field.dart';
 import 'package:uni_book/core/init/constants/color_constants.dart';
 
-import '../../core/init/constants/color_constants.dart';
 
 class GirisYapEkrani extends StatefulWidget {
   const GirisYapEkrani({super.key});
@@ -26,19 +27,63 @@ class _GirisYapEkraniState extends State<GirisYapEkrani> {
         actionsIconColor: ColorConstants.secondaryColor,
         onActionsIconPressed: () {},
       ),
-      body: Container(
-
+      body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
+          child: Container(
 
-            children: [
-              SizedBox(height: MediaQuery.of(context).size.height/30,),
-              Text("Giriş Yapmak İçin Lütfen Bilgilerini Gir.", style: TextStyle(fontSize: 19, fontWeight: FontWeight.w100),),
-              SizedBox(height: MediaQuery.of(context).size.height/35,),
-              EmailInputField(),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(height: MediaQuery.of(context).size.height/30,),
+                  Text("Giriş yapmak için lütfen bilgilerini gir.", style: TextStyle(fontSize: 15, fontWeight: FontWeight.w100),),
+                  SizedBox(height: MediaQuery.of(context).size.height/35,),
+                  EmailInputField(),
+                  SizedBox(height: MediaQuery.of(context).size.height/40,),
+                  PasswordInputField(),
+                  SizedBox(height: MediaQuery.of(context).size.height/40,),
+                  CustomButton(
+                    inputText: 'Giriş Yap',
+                    style: TextStyle(color: ColorConstants.primaryColor),
+                    backgroundColor: ColorConstants.secondaryColor,
+                    onPressed: () {
+                      print('Giriş Yap butonuna basıldı!');
+                    },
+                    wrapText: true,
+                    width: MediaQuery.of(context).size.width * 0.85,
+                    height:  MediaQuery.of(context).size.height/13,
+                    borderRadius: 20,
+                    boxShadow: BoxShadow(
+                      color: Colors.grey,
+                      blurRadius: 10,
+                      offset: Offset(0, 4),
+                    ),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height/30,),
+                  ClickableText(
+                    text: 'şifreni mi unuttun?',
+                    onTap: () {
+                      print('Metne basıldı!');
+                    },
+                    style: TextStyle(color: ColorConstants.secondaryColor,decoration: TextDecoration.underline,),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height/2.5,),
+                  ClickableText(
+                    text: 'Yeni üye misin? Kayıt ol.',
+                    onTap: () {
+                      print('Metne basıldı!');
+                    },
+                    style: TextStyle(color: ColorConstants.secondaryColor,decoration: TextDecoration.underline,),
+                  )
 
-            ],
+
+
+
+                ],
+              ),
+            ),
           ),
         ),
       ),
