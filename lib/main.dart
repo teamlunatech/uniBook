@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:uni_book/core/components/appbar/appbar.dart';
 import 'package:uni_book/core/components/button/custom_main_button.dart';
 import 'package:uni_book/core/init/constants/color_constants.dart';
+import 'package:uni_book/view/authenticate/girisYap/giris_yap_ekrani.dart';
+import 'package:uni_book/view/welcomepage/welcome_page.dart';
 import 'core/components/button/custom_button.dart';
 import 'core/components/navbar/navbar.dart';
-import 'core/components/text_field/custom_text_field.dart';
+import 'core/components/text_field/custom_email_field.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,7 +26,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
 
-      home: const SimpleBluePage(),
+      home: const GirisYapEkrani(),
     );
   }
 }

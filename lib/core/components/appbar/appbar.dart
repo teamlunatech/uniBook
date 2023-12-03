@@ -5,6 +5,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Color? titleColor;
   final Color? backgroundColor;
   final String? leadingAsset;
+  final IconData? leadingIcon; // Yeni eklendi
+  final Color? leadingIconColor; // Yeni eklendi
   final IconData? actionsIcon;
   final Color? actionsIconColor;
   final Function()? onActionsIconPressed;
@@ -14,6 +16,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.titleColor,
     this.backgroundColor,
     this.leadingAsset,
+    this.leadingIcon, // Yeni eklendi
+    this.leadingIconColor, // Yeni eklendi
     this.actionsIcon,
     this.actionsIconColor,
     this.onActionsIconPressed,
@@ -34,12 +38,16 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: backgroundColor,
       leading: leadingAsset != null
           ? Image.asset(
-            leadingAsset!,
-            width: 50,
-            height: 100,
-          )
+        leadingAsset!,
+        width: 50,
+        height: 100,
+      )
+          : leadingIcon != null
+          ? Icon(
+        leadingIcon,
+        color: leadingIconColor ?? Colors.black, // Varsayılan renk siyah
+      )
           : null,
-
       actions: actionsIcon != null
           ? [
         IconButton(
@@ -56,7 +64,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         style: TextStyle(
           color: titleColor,
           fontSize: 22,
-
         ),
       ),
     );
