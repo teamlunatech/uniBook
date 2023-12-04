@@ -6,20 +6,19 @@ import 'package:uni_book/core/components/text_field/password_input_field.dart';
 import 'package:uni_book/core/components/text_field/phone_input_field.dart';
 import 'package:uni_book/core/init/constants/color_constants.dart';
 
-
-class KayitOlEkrani extends StatefulWidget {
-  const KayitOlEkrani({super.key});
+class KimlikKartiYukleme extends StatefulWidget {
+  const KimlikKartiYukleme({super.key});
 
   @override
-  State<KayitOlEkrani> createState() => _KayitOlEkraniState();
+  State<KimlikKartiYukleme> createState() => _KimlikKartiYuklemeState();
 }
 
-class _KayitOlEkraniState extends State<KayitOlEkrani> {
+class _KimlikKartiYuklemeState extends State<KimlikKartiYukleme> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: "Kayıt Ol",
+        title: "Öğrenci Kimlik Kartı Yükle",
         titleColor:  ColorConstants.secondaryColor,
         backgroundColor: ColorConstants.primaryColor,
         leadingIcon: Icons.arrow_back,
@@ -28,24 +27,15 @@ class _KayitOlEkraniState extends State<KayitOlEkrani> {
         onActionsIconPressed: () {},
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
+        child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              SizedBox(height: MediaQuery.of(context).size.height/30,),
-              Text("Kayıt olmak için lütfen bilgilerini gir.", style: TextStyle(fontSize: 15, fontWeight: FontWeight.w100),),
-              SizedBox(height: MediaQuery.of(context).size.height/40,),
-              NameInputField(),
-              SizedBox(height: MediaQuery.of(context).size.height/40,),
-              PasswordInputField(),
-              SizedBox(height: MediaQuery.of(context).size.height/40,),
-              PhoneInputField(),
-              SizedBox(height: MediaQuery.of(context).size.height/14,),
-              Text("Senin Gebze Teknik Üniversitesi'nde öğrenci olduğunu doğrulamamız gerek!", style: TextStyle(fontSize: 15, fontWeight: FontWeight.w100),),
-              SizedBox(height: MediaQuery.of(context).size.height/14,),
+              SizedBox(height: MediaQuery.sizeOf(context).height/20,),
+              Image.asset('lib/assets/icons/kimlikkarti.png'),
+              SizedBox(height: MediaQuery.sizeOf(context).height/14,),
               CustomButton(
-                inputText: 'Öğrenci Kimlik Kartı Yükle',
+                inputText: 'Galeriyi Aç',
                 style: TextStyle(color: ColorConstants.primaryColor),
                 backgroundColor: ColorConstants.secondaryColor,
                 onPressed: () {
@@ -61,9 +51,9 @@ class _KayitOlEkraniState extends State<KayitOlEkrani> {
                   offset: Offset(0, 4),
                 ),
               ),
-              SizedBox(height: MediaQuery.of(context).size.height/14,),
+              SizedBox(height: MediaQuery.of(context).size.height/20,),
               CustomButton(
-                inputText: 'Kayıt Ol',
+                inputText: 'Kamerayı Aç',
                 style: TextStyle(color: ColorConstants.primaryColor),
                 backgroundColor: ColorConstants.secondaryColor,
                 onPressed: () {
@@ -79,10 +69,28 @@ class _KayitOlEkraniState extends State<KayitOlEkrani> {
                   offset: Offset(0, 4),
                 ),
               ),
+              SizedBox(height: MediaQuery.of(context).size.height/5.4,),
+              CustomButton(
+                inputText: 'Tamamla',
+                style: TextStyle(color: ColorConstants.primaryColor),
+                backgroundColor: ColorConstants.secondaryColor,
+                onPressed: () {
+
+                },
+                wrapText: true,
+                width: MediaQuery.of(context).size.width * 0.85,
+                height:  MediaQuery.of(context).size.height/13,
+                borderRadius: 20,
+                boxShadow: BoxShadow(
+                  color: Colors.grey,
+                  blurRadius: 10,
+                  offset: Offset(0, 4),
+                ),
+              ),
+
             ],
           ),
         ),
-
       ),
     );
   }

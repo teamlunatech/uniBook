@@ -4,6 +4,9 @@ import 'package:uni_book/core/components/button/custom_main_button.dart';
 import 'package:uni_book/core/init/constants/color_constants.dart';
 import 'package:uni_book/view/authenticate/girisYap/basarili_giris_ekrani.dart';
 import 'package:uni_book/view/authenticate/girisYap/giris_yap_ekrani.dart';
+import 'package:uni_book/view/authenticate/kayitOl/basarili_kayit_ekrani.dart';
+import 'package:uni_book/view/authenticate/kayitOl/kayit_ol_ekrani.dart';
+import 'package:uni_book/view/kimlik_karti_yukleme/kimlik_karti_yukleme.dart';
 import 'package:uni_book/view/welcomepage/welcome_page.dart';
 import 'core/components/button/custom_button.dart';
 import 'core/components/navbar/navbar.dart';
@@ -27,7 +30,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
 
-      home: const BasariliGirisEkrani(),
+      home: const KimlikKartiYukleme(),
     );
   }
 }
