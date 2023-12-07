@@ -6,9 +6,13 @@ import 'package:uni_book/view/authenticate/girisYap/basarili_giris_ekrani.dart';
 import 'package:uni_book/view/authenticate/girisYap/giris_yap_ekrani.dart';
 import 'package:uni_book/view/authenticate/kayitOl/basarili_kayit_ekrani.dart';
 import 'package:uni_book/view/authenticate/kayitOl/kayit_ol_ekrani.dart';
+import 'package:uni_book/view/booksdetail/books_detail_page.dart';
+import 'package:uni_book/view/booksdetail/ilan_teklif_basarili.dart';
+import 'package:uni_book/view/favorites/favoritesPage.dart';
 import 'package:uni_book/view/home/homePage.dart';
 import 'package:uni_book/view/kimlik_karti_yukleme/kimlik_bekleniyor.dart';
 import 'package:uni_book/view/kimlik_karti_yukleme/kimlik_karti_yukleme.dart';
+import 'package:uni_book/view/userAccountDetail/user_account_detail_page.dart';
 import 'package:uni_book/view/welcomepage/welcome_page.dart';
 import 'core/components/button/custom_button.dart';
 import 'core/components/navbar/navbar.dart';
@@ -32,7 +36,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
 
-      home: const HomePage(),
+      home: ProfileEditPage(),
     );
   }
 }

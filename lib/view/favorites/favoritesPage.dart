@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:uni_book/core/components/button/custom_button.dart';
 import 'package:uni_book/core/components/appbar/appbar.dart';
 import 'package:uni_book/core/components/button/custom_main_button.dart';
 import 'package:uni_book/core/components/header_text/custom_header_text.dart';
 import 'package:uni_book/core/components/navbar/navbar.dart';
-import 'package:uni_book/core/components/searchBar.dart';
-import 'package:uni_book/core/components/slider/slider.dart';
+
 import '../../core/init/constants/color_constants.dart';
 
-
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class FavoritesPage extends StatefulWidget {
+  const FavoritesPage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<FavoritesPage> createState() => _FavoritesPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _FavoritesPageState extends State<FavoritesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,16 +33,7 @@ class _HomePageState extends State<HomePage> {
             children: [
               SizedBox(height: 25,),
               SearchBar(),
-              CustomHeaderText(text: "İyi Okumalar"),
-
-
-              ImageSlider(
-                images: [
-                  AssetImage('lib/assets/icons/slider.png'),
-                  AssetImage('lib/assets/icons/slider.png'),
-                  AssetImage('lib/assets/icons/slider.png'),
-                ],
-              ),
+              CustomHeaderText(text: "Favoriler"),
               SizedBox(height: 15,),
               Expanded(
                 child: GridView.builder(
@@ -65,7 +53,7 @@ class _HomePageState extends State<HomePage> {
                       text1: "Kitap Adı $index",
                       text2: "Kitap $index",
                       text3: "Kitap $index",
-                      icon: Icons.favorite_border,
+                      icon: Icons.favorite,
                     );
                   },
                 ),
@@ -75,36 +63,6 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       bottomNavigationBar: CustomBottomNavigationBar(onTabSelected: (int ) {  },),
-    );
-  }
-}
-
-
-
-
-class MyGridPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return  GridView.builder(
-      padding: EdgeInsets.all(10),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-        childAspectRatio: 3 / 2, // Her öğenin boyut oranı
-      ),
-      itemCount: 10, // Toplam 10 öğe
-      itemBuilder: (context, index) {
-        return CustomMainButton(
-          backgroundColor: ColorConstants.secondaryColor,
-          borderRadius: 10,
-          imagePath: "lib/assets/icons/kitapresmi.png",
-          text1: "Kitap Adı $index",
-          text2: "Kitap $index",
-          text3: "Kitap $index",
-          icon: Icons.add_box_outlined,
-        );
-      },
     );
   }
 }
