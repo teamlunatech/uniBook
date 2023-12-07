@@ -6,6 +6,7 @@ import 'package:uni_book/view/authenticate/girisYap/basarili_giris_ekrani.dart';
 import 'package:uni_book/view/authenticate/girisYap/giris_yap_ekrani.dart';
 import 'package:uni_book/view/authenticate/kayitOl/basarili_kayit_ekrani.dart';
 import 'package:uni_book/view/authenticate/kayitOl/kayit_ol_ekrani.dart';
+import 'package:uni_book/view/home/homePage.dart';
 import 'package:uni_book/view/kimlik_karti_yukleme/kimlik_bekleniyor.dart';
 import 'package:uni_book/view/kimlik_karti_yukleme/kimlik_karti_yukleme.dart';
 import 'package:uni_book/view/welcomepage/welcome_page.dart';
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
 
-      home: const KimlikBekleniyor(),
+      home: const HomePage(),
     );
   }
 }
