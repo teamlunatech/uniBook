@@ -17,25 +17,26 @@ class _MySearchBarState extends State<MySearchBar> {
         controller: _searchController,
         decoration: InputDecoration(
           hintText: 'Ara...',
-          prefixIcon: Icon(Icons.search, color: ColorConstants.secondaryColor),
+          prefixIcon: Icon(Icons.search, color: Colors.black),
           suffixIcon: IconButton(
-            icon: Icon(Icons.clear, color: ColorConstants.secondaryColor),
+            icon: Icon(Icons.clear, color: Colors.black),
             onPressed: () {
               _searchController.clear();
             },
           ),
           border: OutlineInputBorder(
             borderRadius:
-            BorderRadius.circular(10.0),
+            BorderRadius.circular(10.0), // Sınırları yuvarlatmak için
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: ColorConstants.secondaryColor),
+            borderSide: BorderSide(color: Colors.grey),
           ),
-          fillColor: ColorConstants.primaryColor,
+
+          fillColor: ColorConstants.inputfieldcolor,
           filled: true,
         ),
-        style: TextStyle(color: ColorConstants.inputfieldcolor),
+        style: TextStyle(color: Colors.black),
         onChanged: (text) {
           print('Arama: $text');
         },
