@@ -1,4 +1,3 @@
-import 'package:floating_bottom_bar/constants/image_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:uni_book/core/components/appbar/appbar.dart';
 import 'package:uni_book/core/components/button/custom_button.dart';
@@ -6,7 +5,14 @@ import 'package:uni_book/core/components/info/custom_info_container.dart';
 import 'package:uni_book/core/components/navbar/navbar.dart';
 import 'package:uni_book/core/init/constants/color_constants.dart';
 
-class ProfileEditPage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,29 +38,30 @@ class ProfileEditPage extends StatelessWidget {
                   backgroundColor: Colors.transparent,
                 ),
 
-                SizedBox(height: MediaQuery.sizeOf(context).height/25),
+                SizedBox(height: MediaQuery.sizeOf(context).height/30),
                 CustomInfoContainer(title: "Name", content: "Selen Erdoğan"),
-                SizedBox(height: MediaQuery.sizeOf(context).height/20),
+                SizedBox(height: MediaQuery.sizeOf(context).height/30),
                 CustomInfoContainer(title: "E-mail", content: "selen@gmail.com"),
-                SizedBox(height: MediaQuery.sizeOf(context).height/10),
-
-            CustomButton(
-              inputText: 'Kullanıcıyı Şikayet Et',
-              style: TextStyle(color: ColorConstants.secondaryColor),
-              backgroundColor: ColorConstants.primaryColor,
-              onPressed: () {
-                print('Butona basıldı!');
-              },
-              wrapText: true,
-              width: 350,
-              height: 60,
-              borderRadius: 20,
-              boxShadow: BoxShadow(
-                color: ColorConstants.secondaryColor,
-                blurRadius: 10,
-                offset: Offset(0, 4),
-              ),
-            )
+                SizedBox(height: MediaQuery.sizeOf(context).height/30),
+                CustomInfoContainer(title: "Şifre", content: "*******"),
+                SizedBox(height: MediaQuery.sizeOf(context).height/30),
+                CustomButton(
+                  inputText: 'Çıkış Yap',
+                  style: TextStyle(color: ColorConstants.secondaryColor),
+                  backgroundColor: ColorConstants.primaryColor,
+                  onPressed: () {
+                    print('Butona basıldı!');
+                  },
+                  wrapText: true,
+                  width: 350,
+                  height: 60,
+                  borderRadius: 20,
+                  boxShadow: BoxShadow(
+                    color: ColorConstants.secondaryColor,
+                    blurRadius: 10,
+                    offset: Offset(0, 4),
+                  ),
+                )
               ],
             ),
           ),
@@ -63,10 +70,4 @@ class ProfileEditPage extends StatelessWidget {
       bottomNavigationBar: CustomBottomNavigationBar(onTabSelected: (int ) {  },),
     );
   }
-
-
-
 }
-
-
-
