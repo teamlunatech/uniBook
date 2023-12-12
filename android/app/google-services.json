@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "52215896362",
+    "project_id": "unibook-e3013",
+    "storage_bucket": "unibook-e3013.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:52215896362:android:8d928adee8de0898442653",
+        "android_client_info": {
+          "package_name": "com.example.uni_book"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBe-8Cdqv9imaSN22oaLnKZAIBmCEaEbiA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:52215896362:android:7813641a29a8c3c4442653",
+        "android_client_info": {
+          "package_name": "com.example.unibook"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBe-8Cdqv9imaSN22oaLnKZAIBmCEaEbiA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
