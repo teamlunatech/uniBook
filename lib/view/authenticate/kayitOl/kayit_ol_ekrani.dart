@@ -1,24 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:uni_book/core/components/appbar/appbar.dart';
 import 'package:uni_book/core/components/button/custom_button.dart';
-<<<<<<< HEAD
-=======
+
 import 'package:uni_book/core/components/text_field/custom_email_field.dart';
->>>>>>> a-branch
+
 import 'package:uni_book/core/components/text_field/name_form_widget.dart';
 import 'package:uni_book/core/components/text_field/password_input_field.dart';
 import 'package:uni_book/core/components/text_field/phone_input_field.dart';
 import 'package:uni_book/core/init/constants/color_constants.dart';
 
-<<<<<<< HEAD
-=======
+
 import 'package:uni_book/utilities/show_error_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:uni_book/constants/routes.dart';
 import 'package:uni_book/view/authenticate/kayitOl/basarili_kayit_ekrani.dart';
 import 'package:uni_book/view/kimlik_karti_yukleme/kimlik_karti_yukleme.dart';
->>>>>>> a-branch
+
 
 class KayitOlEkrani extends StatefulWidget {
   const KayitOlEkrani({super.key});
@@ -28,8 +26,7 @@ class KayitOlEkrani extends StatefulWidget {
 }
 
 class _KayitOlEkraniState extends State<KayitOlEkrani> {
-<<<<<<< HEAD
-=======
+
   late final TextEditingController _email;
   late final TextEditingController _password;
   late final TextEditingController _name;
@@ -63,29 +60,25 @@ class _KayitOlEkraniState extends State<KayitOlEkrani> {
     _password.text = password;
   }
 
->>>>>>> a-branch
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
         title: "Kayıt Ol",
-<<<<<<< HEAD
+
         titleColor:  ColorConstants.secondaryColor,
-=======
-        titleColor: ColorConstants.secondaryColor,
->>>>>>> a-branch
+
         backgroundColor: ColorConstants.primaryColor,
         leadingIcon: Icons.arrow_back,
         leadingIconColor: ColorConstants.secondaryColor,
         actionsIconColor: ColorConstants.secondaryColor,
-<<<<<<< HEAD
-        onActionsIconPressed: () {},
-=======
+
         onActionsIconPressed: () {
           Navigator.of(context)
               .pushNamedAndRemoveUntil(welcomeRoute, (route) => false);
         },
->>>>>>> a-branch
+
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -93,26 +86,13 @@ class _KayitOlEkraniState extends State<KayitOlEkrani> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-<<<<<<< HEAD
+
               SizedBox(height: MediaQuery.of(context).size.height/30,),
               Text("Kayıt olmak için lütfen bilgilerini gir.", style: TextStyle(fontSize: 15, fontWeight: FontWeight.w100),),
-              SizedBox(height: MediaQuery.of(context).size.height/40,),
-              NameInputField(),
-              SizedBox(height: MediaQuery.of(context).size.height/40,),
-              PasswordInputField(),
-              SizedBox(height: MediaQuery.of(context).size.height/40,),
-              PhoneInputField(),
-              SizedBox(height: MediaQuery.of(context).size.height/14,),
-              Text("Senin Gebze Teknik Üniversitesi'nde öğrenci olduğunu doğrulamamız gerek!", style: TextStyle(fontSize: 15, fontWeight: FontWeight.w100),),
-              SizedBox(height: MediaQuery.of(context).size.height/14,),
-=======
-              SizedBox(
-                height: MediaQuery.of(context).size.height / 30,
-              ),
-              Text(
-                "Kayıt olmak için lütfen bilgilerini gir.",
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w100),
-              ),
+
+
+
+
               SizedBox(
                 height: MediaQuery.of(context).size.height / 40,
               ),
@@ -141,29 +121,24 @@ class _KayitOlEkraniState extends State<KayitOlEkrani> {
               SizedBox(
                 height: MediaQuery.of(context).size.height / 14,
               ),
->>>>>>> a-branch
+
               CustomButton(
                 inputText: 'Öğrenci Kimlik Kartı Yükle',
                 style: TextStyle(color: ColorConstants.primaryColor),
                 backgroundColor: ColorConstants.secondaryColor,
-<<<<<<< HEAD
-                onPressed: () {
 
-                },
                 wrapText: true,
                 width: MediaQuery.of(context).size.width * 0.85,
                 height:  MediaQuery.of(context).size.height/13,
-=======
+
                 onPressed: () async {
                   imageUrl = await Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => KimlikKartiYukleme()));
                 },
-                wrapText: true,
-                width: MediaQuery.of(context).size.width * 0.85,
-                height: MediaQuery.of(context).size.height / 13,
->>>>>>> a-branch
+
+
                 borderRadius: 20,
                 boxShadow: BoxShadow(
                   color: Colors.grey,
@@ -171,25 +146,16 @@ class _KayitOlEkraniState extends State<KayitOlEkrani> {
                   offset: Offset(0, 4),
                 ),
               ),
-<<<<<<< HEAD
-              SizedBox(height: MediaQuery.of(context).size.height/14,),
-=======
+
               SizedBox(
                 height: MediaQuery.of(context).size.height / 14,
               ),
->>>>>>> a-branch
+
               CustomButton(
                 inputText: 'Kayıt Ol',
                 style: TextStyle(color: ColorConstants.primaryColor),
                 backgroundColor: ColorConstants.secondaryColor,
-<<<<<<< HEAD
-                onPressed: () {
 
-                },
-                wrapText: true,
-                width: MediaQuery.of(context).size.width * 0.85,
-                height:  MediaQuery.of(context).size.height/13,
-=======
                 onPressed: () async {
                   final email = _email.text;
                   final password = _password.text;
@@ -232,7 +198,7 @@ class _KayitOlEkraniState extends State<KayitOlEkrani> {
                 wrapText: true,
                 width: MediaQuery.of(context).size.width * 0.85,
                 height: MediaQuery.of(context).size.height / 13,
->>>>>>> a-branch
+
                 borderRadius: 20,
                 boxShadow: BoxShadow(
                   color: Colors.grey,
@@ -243,10 +209,7 @@ class _KayitOlEkraniState extends State<KayitOlEkrani> {
             ],
           ),
         ),
-<<<<<<< HEAD
 
-=======
->>>>>>> a-branch
       ),
     );
   }

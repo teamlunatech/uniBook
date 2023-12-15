@@ -48,11 +48,10 @@ class _ImageSliderState extends State<ImageSlider> {
   Widget build(BuildContext context) {
 
     final screenHeight = MediaQuery.of(context).size.height;
-<<<<<<< HEAD
+
     final sliderHeight = screenHeight / 6;
-=======
-    final sliderHeight = screenHeight / 5;
->>>>>>> a-branch
+
+
 
     return Padding(
       padding: const EdgeInsets.all(15.0),

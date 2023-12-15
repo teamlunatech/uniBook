@@ -1,9 +1,9 @@
-<<<<<<< HEAD
+
 import 'package:flutter/material.dart';
 import 'package:uni_book/core/components/appbar/appbar.dart';
 import 'package:uni_book/core/components/button/custom_button.dart';
 import 'package:uni_book/core/init/constants/color_constants.dart';
-=======
+
 import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
@@ -14,7 +14,6 @@ import 'package:uni_book/core/components/appbar/appbar.dart';
 import 'package:uni_book/core/components/button/custom_button.dart';
 import 'package:uni_book/core/init/constants/color_constants.dart';
 import 'package:uni_book/utilities/show_error_dialog.dart';
->>>>>>> a-branch
 
 class KimlikKartiYukleme extends StatefulWidget {
   const KimlikKartiYukleme({super.key});
@@ -24,22 +23,19 @@ class KimlikKartiYukleme extends StatefulWidget {
 }
 
 class _KimlikKartiYuklemeState extends State<KimlikKartiYukleme> {
-<<<<<<< HEAD
-=======
+
   String imageUrl = '';
   ImagePicker imagePicker = ImagePicker();
   XFile? file;
->>>>>>> a-branch
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
         title: "Öğrenci Kimlik Kartı Yükle",
-<<<<<<< HEAD
-        titleColor:  ColorConstants.secondaryColor,
-=======
+
         titleColor: ColorConstants.secondaryColor,
->>>>>>> a-branch
+
         backgroundColor: ColorConstants.primaryColor,
         leadingIcon: Icons.arrow_back,
         leadingIconColor: ColorConstants.secondaryColor,
@@ -51,11 +47,11 @@ class _KimlikKartiYuklemeState extends State<KimlikKartiYukleme> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-<<<<<<< HEAD
+
               SizedBox(height: MediaQuery.sizeOf(context).height/20,),
               Image.asset('lib/assets/icons/kimlikkarti.png'),
               SizedBox(height: MediaQuery.sizeOf(context).height/14,),
-=======
+
               SizedBox(
                 height: MediaQuery.sizeOf(context).height / 20,
               ),
@@ -63,19 +59,12 @@ class _KimlikKartiYuklemeState extends State<KimlikKartiYukleme> {
               SizedBox(
                 height: MediaQuery.sizeOf(context).height / 14,
               ),
->>>>>>> a-branch
+
               CustomButton(
                 inputText: 'Galeriyi Aç',
                 style: TextStyle(color: ColorConstants.primaryColor),
                 backgroundColor: ColorConstants.secondaryColor,
-<<<<<<< HEAD
-                onPressed: () {
 
-                },
-                wrapText: true,
-                width: MediaQuery.of(context).size.width * 0.85,
-                height:  MediaQuery.of(context).size.height/13,
-=======
                 onPressed: () async {
                   // Pick image
                   file =
@@ -84,7 +73,7 @@ class _KimlikKartiYuklemeState extends State<KimlikKartiYukleme> {
                 wrapText: true,
                 width: MediaQuery.of(context).size.width * 0.85,
                 height: MediaQuery.of(context).size.height / 13,
->>>>>>> a-branch
+
                 borderRadius: 20,
                 boxShadow: BoxShadow(
                   color: Colors.grey,
@@ -92,25 +81,16 @@ class _KimlikKartiYuklemeState extends State<KimlikKartiYukleme> {
                   offset: Offset(0, 4),
                 ),
               ),
-<<<<<<< HEAD
-              SizedBox(height: MediaQuery.of(context).size.height/20,),
-=======
+
               SizedBox(
                 height: MediaQuery.of(context).size.height / 20,
               ),
->>>>>>> a-branch
+
               CustomButton(
                 inputText: 'Kamerayı Aç',
                 style: TextStyle(color: ColorConstants.primaryColor),
                 backgroundColor: ColorConstants.secondaryColor,
-<<<<<<< HEAD
-                onPressed: () {
 
-                },
-                wrapText: true,
-                width: MediaQuery.of(context).size.width * 0.85,
-                height:  MediaQuery.of(context).size.height/13,
-=======
                 onPressed: () async {
                   // Pick image
                   file =
@@ -119,7 +99,7 @@ class _KimlikKartiYuklemeState extends State<KimlikKartiYukleme> {
                 wrapText: true,
                 width: MediaQuery.of(context).size.width * 0.85,
                 height: MediaQuery.of(context).size.height / 13,
->>>>>>> a-branch
+
                 borderRadius: 20,
                 boxShadow: BoxShadow(
                   color: Colors.grey,
@@ -127,25 +107,16 @@ class _KimlikKartiYuklemeState extends State<KimlikKartiYukleme> {
                   offset: Offset(0, 4),
                 ),
               ),
-<<<<<<< HEAD
-              SizedBox(height: MediaQuery.of(context).size.height/5.4,),
-=======
+
               SizedBox(
                 height: MediaQuery.of(context).size.height / 5.4,
               ),
->>>>>>> a-branch
+
               CustomButton(
                 inputText: 'Tamamla',
                 style: TextStyle(color: ColorConstants.primaryColor),
                 backgroundColor: ColorConstants.secondaryColor,
-<<<<<<< HEAD
-                onPressed: () {
 
-                },
-                wrapText: true,
-                width: MediaQuery.of(context).size.width * 0.85,
-                height:  MediaQuery.of(context).size.height/13,
-=======
                 onPressed: () async {
                   if (file == null) return;
                   // File name
@@ -175,7 +146,7 @@ class _KimlikKartiYuklemeState extends State<KimlikKartiYukleme> {
                 wrapText: true,
                 width: MediaQuery.of(context).size.width * 0.85,
                 height: MediaQuery.of(context).size.height / 13,
->>>>>>> a-branch
+
                 borderRadius: 20,
                 boxShadow: BoxShadow(
                   color: Colors.grey,
@@ -183,10 +154,7 @@ class _KimlikKartiYuklemeState extends State<KimlikKartiYukleme> {
                   offset: Offset(0, 4),
                 ),
               ),
-<<<<<<< HEAD
 
-=======
->>>>>>> a-branch
             ],
           ),
         ),
