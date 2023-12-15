@@ -77,7 +77,8 @@ class _HomePageState extends State<HomePage> {
           ),
 
     )
-    )
+    ),
+      bottomNavigationBar: CustomBottomNavigationBar(onTabSelected: (int ) {  },),
     );
   }
 }
@@ -135,6 +136,7 @@ class MyGridPage extends StatelessWidget {
           );
         },
       ),
+      bottomNavigationBar: CustomBottomNavigationBar(onTabSelected: (int ) {  },),
     );
   }
 }
