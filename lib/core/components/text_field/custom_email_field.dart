@@ -2,7 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:uni_book/core/init/constants/color_constants.dart';
 
 class EmailInputField extends StatefulWidget {
+<<<<<<< HEAD
   const EmailInputField({Key? key}) : super(key: key);
+=======
+  final Function(String) onEmailChanged;
+
+  const EmailInputField({Key? key, required this.onEmailChanged})
+      : super(key: key);
+>>>>>>> a-branch
 
   @override
   _EmailInputFieldState createState() => _EmailInputFieldState();
@@ -20,7 +27,11 @@ class _EmailInputFieldState extends State<EmailInputField> {
   Widget build(BuildContext context) {
     return Container(
       color: ColorConstants.primaryColor,
+<<<<<<< HEAD
       height: MediaQuery.sizeOf(context).height/15,
+=======
+      height: MediaQuery.sizeOf(context).height / 15,
+>>>>>>> a-branch
       child: Form(
         key: _formKey,
         child: TextFormField(
@@ -39,6 +50,12 @@ class _EmailInputFieldState extends State<EmailInputField> {
             }
             return null;
           },
+<<<<<<< HEAD
+=======
+          onChanged: (value) {
+            widget.onEmailChanged(value); // Callback to the parent widget
+          },
+>>>>>>> a-branch
         ),
       ),
     );

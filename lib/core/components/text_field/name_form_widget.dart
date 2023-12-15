@@ -2,7 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:uni_book/core/init/constants/color_constants.dart';
 
 class NameInputField extends StatefulWidget {
+<<<<<<< HEAD
   const NameInputField({Key? key}) : super(key: key);
+=======
+  final Function(String) onNameChanged;
+
+  const NameInputField({Key? key, required this.onNameChanged})
+      : super(key: key);
+>>>>>>> a-branch
 
   @override
   _NameInputFieldState createState() => _NameInputFieldState();
@@ -39,6 +46,12 @@ class _NameInputFieldState extends State<NameInputField> {
             }
             return null;
           },
+<<<<<<< HEAD
+=======
+          onChanged: (value) {
+            widget.onNameChanged(value); // Callback to the parent widget
+          },
+>>>>>>> a-branch
         ),
       ),
     );

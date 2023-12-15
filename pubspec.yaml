@@ -37,6 +37,14 @@ dependencies:
   cupertino_icons: ^1.0.2
   floating_bottom_bar: ^0.0.2
   carousel_slider: ^4.2.1
+<<<<<<< HEAD
+=======
+  firebase_core: ^2.24.2
+  firebase_auth: ^4.15.2
+  cloud_firestore: ^4.13.5
+  image_picker: ^1.0.4
+  firebase_storage: ^11.5.5
+>>>>>>> a-branch
 
 dev_dependencies:
   flutter_test:
