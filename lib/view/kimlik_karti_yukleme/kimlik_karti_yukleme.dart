@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:uni_book/core/components/appbar/appbar.dart';
 import 'package:uni_book/core/components/button/custom_button.dart';
@@ -23,19 +22,18 @@ class KimlikKartiYukleme extends StatefulWidget {
 }
 
 class _KimlikKartiYuklemeState extends State<KimlikKartiYukleme> {
-
+  String defaultImagePath = 'lib/assets/icons/kimlikkarti.png';
   String imageUrl = '';
   ImagePicker imagePicker = ImagePicker();
   XFile? file;
+  File? _selectedImage;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
         title: "Öğrenci Kimlik Kartı Yükle",
-
         titleColor: ColorConstants.secondaryColor,
-
         backgroundColor: ColorConstants.primaryColor,
         leadingIcon: Icons.arrow_back,
         leadingIconColor: ColorConstants.secondaryColor,
@@ -47,33 +45,39 @@ class _KimlikKartiYuklemeState extends State<KimlikKartiYukleme> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-
-              SizedBox(height: MediaQuery.sizeOf(context).height/20,),
-              Image.asset('lib/assets/icons/kimlikkarti.png'),
-              SizedBox(height: MediaQuery.sizeOf(context).height/14,),
-
               SizedBox(
+                height: MediaQuery.sizeOf(context).height / 20,
+              ),
+              _selectedImage != null
+                  ? Image.file(_selectedImage!)
+                  : Image.asset(defaultImagePath),
+              SizedBox(
+                height: MediaQuery.sizeOf(context).height / 14,
+              ),
+              /*SizedBox(
                 height: MediaQuery.sizeOf(context).height / 20,
               ),
               Image.asset('lib/assets/icons/kimlikkarti.png'),
               SizedBox(
                 height: MediaQuery.sizeOf(context).height / 14,
-              ),
-
+              ),*/
               CustomButton(
                 inputText: 'Galeriyi Aç',
                 style: TextStyle(color: ColorConstants.primaryColor),
                 backgroundColor: ColorConstants.secondaryColor,
-
                 onPressed: () async {
                   // Pick image
                   file =
                       await imagePicker.pickImage(source: ImageSource.gallery);
+                  if (file != null) {
+                    setState(() {
+                      _selectedImage = File(file!.path);
+                    });
+                  }
                 },
                 wrapText: true,
                 width: MediaQuery.of(context).size.width * 0.85,
                 height: MediaQuery.of(context).size.height / 13,
-
                 borderRadius: 20,
                 boxShadow: BoxShadow(
                   color: Colors.grey,
@@ -81,25 +85,26 @@ class _KimlikKartiYuklemeState extends State<KimlikKartiYukleme> {
                   offset: Offset(0, 4),
                 ),
               ),
-
               SizedBox(
                 height: MediaQuery.of(context).size.height / 20,
               ),
-
               CustomButton(
                 inputText: 'Kamerayı Aç',
                 style: TextStyle(color: ColorConstants.primaryColor),
                 backgroundColor: ColorConstants.secondaryColor,
-
                 onPressed: () async {
                   // Pick image
                   file =
                       await imagePicker.pickImage(source: ImageSource.camera);
+                  if (file != null) {
+                    setState(() {
+                      _selectedImage = File(file!.path);
+                    });
+                  }
                 },
                 wrapText: true,
                 width: MediaQuery.of(context).size.width * 0.85,
                 height: MediaQuery.of(context).size.height / 13,
-
                 borderRadius: 20,
                 boxShadow: BoxShadow(
                   color: Colors.grey,
@@ -107,16 +112,13 @@ class _KimlikKartiYuklemeState extends State<KimlikKartiYukleme> {
                   offset: Offset(0, 4),
                 ),
               ),
-
               SizedBox(
                 height: MediaQuery.of(context).size.height / 5.4,
               ),
-
               CustomButton(
                 inputText: 'Tamamla',
                 style: TextStyle(color: ColorConstants.primaryColor),
                 backgroundColor: ColorConstants.secondaryColor,
-
                 onPressed: () async {
                   if (file == null) return;
                   // File name
@@ -146,7 +148,6 @@ class _KimlikKartiYuklemeState extends State<KimlikKartiYukleme> {
                 wrapText: true,
                 width: MediaQuery.of(context).size.width * 0.85,
                 height: MediaQuery.of(context).size.height / 13,
-
                 borderRadius: 20,
                 boxShadow: BoxShadow(
                   color: Colors.grey,
@@ -154,7 +155,6 @@ class _KimlikKartiYuklemeState extends State<KimlikKartiYukleme> {
                   offset: Offset(0, 4),
                 ),
               ),
-
             ],
           ),
         ),
