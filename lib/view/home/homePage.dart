@@ -167,8 +167,14 @@ class MyGridPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Arama Sonuçları"),
+      appBar: CustomAppBar(
+        title: "Arama Sonuçları",
+        titleColor: ColorConstants.secondaryColor,
+        backgroundColor: ColorConstants.primaryColor,
+        leadingAsset: "lib/assets/icons/app_icon.png",
+        actionsIcon: Icons.location_history,
+        actionsIconColor: ColorConstants.secondaryColor,
+        onActionsIconPressed: () {},
       ),
       body: GridView.builder(
         padding: EdgeInsets.all(10),
