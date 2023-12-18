@@ -9,12 +9,14 @@ import 'package:uni_book/core/components/text_field/password_input_field.dart';
 import 'package:uni_book/core/components/text_field/phone_input_field.dart';
 import 'package:uni_book/core/init/constants/color_constants.dart';
 
+
 import 'package:uni_book/utilities/show_error_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:uni_book/constants/routes.dart';
 import 'package:uni_book/view/authenticate/kayitOl/basarili_kayit_ekrani.dart';
 import 'package:uni_book/view/kimlik_karti_yukleme/kimlik_karti_yukleme.dart';
+
 
 class KayitOlEkrani extends StatefulWidget {
   const KayitOlEkrani({super.key});
@@ -24,6 +26,7 @@ class KayitOlEkrani extends StatefulWidget {
 }
 
 class _KayitOlEkraniState extends State<KayitOlEkrani> {
+
   late final TextEditingController _email;
   late final TextEditingController _password;
   late final TextEditingController _name;
@@ -57,20 +60,25 @@ class _KayitOlEkraniState extends State<KayitOlEkrani> {
     _password.text = password;
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
         title: "Kayıt Ol",
-        titleColor: ColorConstants.secondaryColor,
+
+        titleColor:  ColorConstants.secondaryColor,
+
         backgroundColor: ColorConstants.primaryColor,
         leadingIcon: Icons.arrow_back,
         leadingIconColor: ColorConstants.secondaryColor,
         actionsIconColor: ColorConstants.secondaryColor,
+
         onActionsIconPressed: () {
           Navigator.of(context)
               .pushNamedAndRemoveUntil(welcomeRoute, (route) => false);
         },
+
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -78,13 +86,13 @@ class _KayitOlEkraniState extends State<KayitOlEkrani> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height / 30,
-              ),
-              Text(
-                "Kayıt olmak için lütfen bilgilerini gir.",
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w100),
-              ),
+
+              SizedBox(height: MediaQuery.of(context).size.height/30,),
+              Text("Kayıt olmak için lütfen bilgilerini gir.", style: TextStyle(fontSize: 15, fontWeight: FontWeight.w100),),
+
+
+
+
               SizedBox(
                 height: MediaQuery.of(context).size.height / 40,
               ),
@@ -113,19 +121,24 @@ class _KayitOlEkraniState extends State<KayitOlEkrani> {
               SizedBox(
                 height: MediaQuery.of(context).size.height / 14,
               ),
+
               CustomButton(
                 inputText: 'Öğrenci Kimlik Kartı Yükle',
                 style: TextStyle(color: ColorConstants.primaryColor),
                 backgroundColor: ColorConstants.secondaryColor,
+
                 wrapText: true,
                 width: MediaQuery.of(context).size.width * 0.85,
-                height: MediaQuery.of(context).size.height / 13,
+                height:  MediaQuery.of(context).size.height/13,
+
                 onPressed: () async {
                   imageUrl = await Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => KimlikKartiYukleme()));
                 },
+
+
                 borderRadius: 20,
                 boxShadow: BoxShadow(
                   color: Colors.grey,
@@ -133,19 +146,17 @@ class _KayitOlEkraniState extends State<KayitOlEkrani> {
                   offset: Offset(0, 4),
                 ),
               ),
+
               SizedBox(
                 height: MediaQuery.of(context).size.height / 14,
               ),
+
               CustomButton(
                 inputText: 'Kayıt Ol',
                 style: TextStyle(color: ColorConstants.primaryColor),
                 backgroundColor: ColorConstants.secondaryColor,
+
                 onPressed: () async {
-                  if (imageUrl.isEmpty) {
-                    showErrorDialog(context,
-                        'Lütfen kayıt olabilmek için öğrenci kimliğinizi yükleyin.');
-                    return;
-                  }
                   final email = _email.text;
                   final password = _password.text;
                   final name = _name.text;
@@ -187,6 +198,7 @@ class _KayitOlEkraniState extends State<KayitOlEkrani> {
                 wrapText: true,
                 width: MediaQuery.of(context).size.width * 0.85,
                 height: MediaQuery.of(context).size.height / 13,
+
                 borderRadius: 20,
                 boxShadow: BoxShadow(
                   color: Colors.grey,
@@ -197,6 +209,7 @@ class _KayitOlEkraniState extends State<KayitOlEkrani> {
             ],
           ),
         ),
+
       ),
     );
   }

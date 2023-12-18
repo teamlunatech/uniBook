@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:uni_book/core/init/constants/color_constants.dart';
 
 class AdsInputField extends StatefulWidget {
-  const AdsInputField({Key? key}) : super(key: key);
+  final Function(String) onTextChanged;
+
+  const AdsInputField({Key? key, required this.onTextChanged}) : super(key: key);
 
   @override
   _AdsInputFieldState createState() => _AdsInputFieldState();
@@ -10,11 +12,6 @@ class AdsInputField extends StatefulWidget {
 
 class _AdsInputFieldState extends State<AdsInputField> {
   final TextEditingController _nameController = TextEditingController();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  bool _isValidName(String name) {
-    return RegExp(r'^[a-zA-ZğüşıöçĞÜŞİÖÇ]+$').hasMatch(name);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +19,6 @@ class _AdsInputFieldState extends State<AdsInputField> {
       color: ColorConstants.primaryColor,
       height: MediaQuery.of(context).size.height / 15,
       child: Form(
-        key: _formKey,
         child: TextFormField(
           controller: _nameController,
           keyboardType: TextInputType.name,
@@ -33,19 +29,19 @@ class _AdsInputFieldState extends State<AdsInputField> {
               borderRadius: BorderRadius.all(Radius.circular(10)),
             ),
           ),
-          validator: (value) {
-            if (value == null || value.isEmpty || !_isValidName(value)) {
-              return 'Lütfen geçerli bir isim girin';
-            }
-            return null;
+          onChanged: (value) {
+            widget.onTextChanged(value);
           },
         ),
       ),
     );
   }
 }
+
 class AdsInputField2 extends StatefulWidget {
-  const AdsInputField2({Key? key}) : super(key: key);
+  final Function(String) onTextChanged;
+
+  const AdsInputField2({Key? key, required this.onTextChanged}) : super(key: key);
 
   @override
   _AdsInputField2State createState() => _AdsInputField2State();
@@ -53,11 +49,6 @@ class AdsInputField2 extends StatefulWidget {
 
 class _AdsInputField2State extends State<AdsInputField2> {
   final TextEditingController _nameController = TextEditingController();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  bool _isValidName(String name) {
-    return RegExp(r'^[a-zA-ZğüşıöçĞÜŞİÖÇ]+$').hasMatch(name);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +56,6 @@ class _AdsInputField2State extends State<AdsInputField2> {
       color: ColorConstants.primaryColor,
       height: MediaQuery.of(context).size.height / 15,
       child: Form(
-        key: _formKey,
         child: TextFormField(
           controller: _nameController,
           keyboardType: TextInputType.name,
@@ -76,11 +66,8 @@ class _AdsInputField2State extends State<AdsInputField2> {
               borderRadius: BorderRadius.all(Radius.circular(10)),
             ),
           ),
-          validator: (value) {
-            if (value == null || value.isEmpty || !_isValidName(value)) {
-              return 'Lütfen geçerli bir açıklama girin';
-            }
-            return null;
+          onChanged: (value) {
+            widget.onTextChanged(value);
           },
         ),
       ),

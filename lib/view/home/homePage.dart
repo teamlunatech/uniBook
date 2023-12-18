@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:uni_book/classes/Bildirim.dart';
 import 'package:uni_book/core/components/button/custom_button.dart';
 import 'package:uni_book/core/components/appbar/appbar.dart';
 import 'package:uni_book/core/components/button/custom_main_button.dart';
-
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:uni_book/core/components/header_text/custom_header_text.dart';
 
 import 'package:uni_book/core/components/navbar/navbar.dart';
 import 'package:uni_book/core/components/searchBar.dart';
 import 'package:uni_book/core/components/slider/slider.dart';
+import 'package:uni_book/functions/real_time_get_data.dart';
+import 'package:uni_book/view/booksdetail/books_detail_page.dart';
 import '../../core/init/constants/color_constants.dart';
 
 
@@ -19,29 +23,64 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<Bildirim> allNots = [];
+  List<Bildirim> searchResults = [];
+  String selectedUniName = "";
+
+  @override
+  void initState() {
+    super.initState();
+    RealTimeData.realTimeGetData(allNots, (List<Bildirim> bildirimListesi) {
+      setState(() {
+        allNots = bildirimListesi;
+      });
+    });
+  }
+
+  void onSearch(String text) async {
+    if (text.isEmpty) {
+      setState(() {
+        searchResults = allNots;
+      });
+    } else {
+      await RealTimeData.searchBooks(text).then((results) {
+        setState(() {
+          searchResults = results;
+        });
+
+        // MyGridPage sayfasına geçiş yap
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MyGridPage(searchResults: searchResults),
+          ),
+        );
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
         title: "UNIBOOK",
-        titleColor:  ColorConstants.secondaryColor,
+        titleColor: ColorConstants.secondaryColor,
         backgroundColor: ColorConstants.primaryColor,
         leadingAsset: "lib/assets/icons/app_icon.png",
         actionsIcon: Icons.location_history,
         actionsIconColor: ColorConstants.secondaryColor,
         onActionsIconPressed: () {},
       ),
-
       body: Container(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
               SizedBox(height: 25,),
-              SearchBar(),
+              MySearchBar(
+                onSearch: onSearch,
+              ),
               CustomHeaderText(text: "İyi Okumalar"),
-
-
               ImageSlider(
                 images: [
                   AssetImage('lib/assets/icons/slider.png'),
@@ -51,37 +90,49 @@ class _HomePageState extends State<HomePage> {
               ),
               SizedBox(height: 15,),
               Expanded(
-                child: GridView.builder(
+               child: GridView.builder(
                   padding: EdgeInsets.all(10),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2, // İki sütunlu yapı
-                    crossAxisSpacing: 10, // Yatay aralık
-                    mainAxisSpacing: 10, // Dikey aralık
-                    childAspectRatio: 2 / 2, // Her öğenin boyut oranı
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                    childAspectRatio: 2 / 2,
                   ),
-                  itemCount: 10, // Toplam 10 öğe
+                  itemCount: allNots.length,
                   itemBuilder: (context, index) {
-                    return CustomMainButton(
-                      backgroundColor: ColorConstants.secondaryColor,
-                      borderRadius: 10,
-                      imagePath: "lib/assets/icons/kitapresmi.png",
-                      text1: "Kitap Adı $index",
-                      text2: "Kitap $index",
-                      text3: "Kitap $index",
-                      icon: Icons.favorite_border,
+                    Bildirim book = allNots[index];
+                    return GestureDetector(
+                      onTap: () {
+                        // Navigate to BookDetailPage when tapped
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BookDetailPage(book), // Pass book data to detail page if needed
+                          ),
+                        );
+                      },
+                      child: CustomMainButton(
+                        backgroundColor: ColorConstants.secondaryColor,
+                        borderRadius: 10,
+                        imagePath: "lib/assets/icons/kitapresmi.png",
+                        text1: book.BookName,
+                        text2: "Fiyat: ${book.price}",
+                        text3: "Satıcı: ${book.userName}",
+                        icon: Icons.favorite_border,
+                      ),
                     );
                   },
                 ),
               ),
             ],
           ),
-
-    )
-    ),
-      bottomNavigationBar: CustomBottomNavigationBar(onTabSelected: (int ) {  },),
+        ),
+      ),
+      bottomNavigationBar: CustomBottomNavigationBar(onTabSelected: (int) {}),
     );
   }
 }
+
 
 
 
@@ -108,35 +159,41 @@ class CustomTextWidget extends StatelessWidget {
   }
 }
 
-
 class MyGridPage extends StatelessWidget {
+  final List<Bildirim> searchResults;
+
+  MyGridPage({required this.searchResults});
+
   @override
   Widget build(BuildContext context) {
-    // Scaffold ekleyerek ana yapımızı oluşturuyoruz.
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Arama Sonuçları"),
+      ),
       body: GridView.builder(
         padding: EdgeInsets.all(10),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2, // İki sütunlu yapı
-          crossAxisSpacing: 10, // Yatay aralık
-          mainAxisSpacing: 10, // Dikey aralık
-          childAspectRatio: 3 / 2, // Her öğenin boyut oranı
+          crossAxisCount: 2,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+          childAspectRatio: 3 / 2,
         ),
-        itemCount: 10, // Toplam 10 öğe
+        itemCount: searchResults.length,
         itemBuilder: (context, index) {
-          // CustomMainButton widget'ınız burada kullanılıyor.
+          Bildirim book = searchResults[index];
+
           return CustomMainButton(
             backgroundColor: ColorConstants.secondaryColor,
             borderRadius: 10,
             imagePath: "lib/assets/icons/kitapresmi.png",
-            text1: "Kitap Adı $index",
-            text2: "Kitap $index",
-            text3: "Kitap $index",
-            icon: Icons.add_box_outlined,
+            text1: book.BookName,
+            text2: "Fiyat: ${book.price}",
+            text3: "Satıcı: ${book.userName}",
+            icon: Icons.favorite_border,
           );
         },
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(onTabSelected: (int ) {  },),
+      bottomNavigationBar: CustomBottomNavigationBar(onTabSelected: (int) {}),
     );
   }
 }

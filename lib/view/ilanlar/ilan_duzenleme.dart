@@ -37,9 +37,9 @@ class _IlanDuzenlemeState extends State<IlanDuzenleme> {
           child: Column(
             children: [
               SizedBox(height: MediaQuery.sizeOf(context).height/100,),
-              AdsInputField(),
+              //AdsInputField(),
               SizedBox(height: MediaQuery.sizeOf(context).height/100,),
-              AdsInputField2(),
+              //AdsInputField2(),
               SizedBox(height: MediaQuery.sizeOf(context).height/50,),
         CustomButton(
           inputText: 'İlanı Düzenle',

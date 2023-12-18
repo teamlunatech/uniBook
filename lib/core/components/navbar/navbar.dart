@@ -1,6 +1,11 @@
 import 'dart:developer';
 import 'package:floating_bottom_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:uni_book/view/favorites/favoritesPage.dart';
+import 'package:uni_book/view/home/homePage.dart';
+import 'package:uni_book/view/ilanlar/ilan_koyma.dart';
+import 'package:uni_book/view/ilanlar/ilanlarim.dart';
+import 'package:uni_book/view/kullaniciHesap/profilePage.dart';
 
 import '../../init/constants/color_constants.dart';
 
@@ -54,7 +59,12 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
       ),
     );
   }
-
+final Map<String, Widget> pageMap = {
+  'Anasayfa': HomePage(), // Replace HomePage() with the actual widget for Anasayfa
+  'İlanlarım': MyAdsPage(), // Replace IlanlarimPage() with the actual widget for İlanlarım
+  'Favorilerim': FavoritesPage(), // Replace FavorilerimPage() with the actual widget for Favorilerim
+  'Profil': ProfilePage(), // Replace ProfilPage() with the actual widget for Profil
+};
   BottomBarItem _createBottomBarItem(IconData icon, String title) {
     return BottomBarItem(
       icon: Icon(icon, size: 24.0),
@@ -62,12 +72,18 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
       title: title,
       dotColor: ColorConstants.secondaryColor,
       onTap: (index) {
-        setState(() {
-          _selectedIndex = index;
-        });
-        log(title + ' ' + index.toString());
-        widget.onTabSelected(index);
-      },
+      setState(() {
+        _selectedIndex = index;
+      });
+
+      // Use the Navigator to push the corresponding page based on the title
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => pageMap[title] ?? HomePage()), // Default to HomePage if not found
+      );
+
+      widget.onTabSelected(index);
+    },
     );
   }
 
@@ -78,7 +94,14 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
         icon,
         color: ColorConstants.secondaryColor,
       ),
-      onTap: () => log(logMessage),
+      onTap: () {
+      log(logMessage);
+      // Use Navigator to push the IlanKoyma route
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => IlanKoyma()),
+      );
+    },
     );
   }
 }

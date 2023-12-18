@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uni_book/classes/Bildirim.dart';
 import 'package:uni_book/core/components/appbar/appbar.dart';
 import 'package:uni_book/core/components/button/custom_button.dart';
 import 'package:uni_book/core/components/button/custom_main_button.dart';
@@ -8,17 +9,22 @@ import 'package:uni_book/core/init/constants/color_constants.dart';
 
 
 class BookDetailPage extends StatelessWidget {
+   Bildirim book;
 
-  final String bookTitle = "The Picture of Dorian Gray";
+  // Constructor to receive the book variable
+  BookDetailPage(this.book);
+
+
+  
+      
+  @override
+  Widget build(BuildContext context) {
+  final String bookTitle = book.getBookName();
   final String author = "Oscar Wilde";
   final String category = "Classics";
   final String rating = "4.1/5";
-  final String price = "\$25.00";
-  final String description =
-      "Oscar Wilde's only novel is the dreamlike story of a young man who sells his soul for eternal youth and beauty. In this celebrated work Wilde forged a devastating portrait of the effects of evil and debauchery on a young aesthete in late-19th-century England. Combining elements of the Gothic horror novel and decadent French fiction, the book centers on a striking premise: As Dorian Gray sinks into a life of crime and gross sensuality, his body retains perfect youth and vigor while his recently painted portrait grows day by day into a hideous record of evil, which he must keep hidden from the world. For over a century, this mesmerizing tale of horror and suspense has enjoyed wide popularity. It ranks as one of Wilde's most important creations and among the classic achievements of its kind.";
-
-  @override
-  Widget build(BuildContext context) {
+  final String price = book.getprice();
+  final String description =book.getUniName();
     return Scaffold(
       appBar: CustomAppBar(
         title: "UNIBOOK",
