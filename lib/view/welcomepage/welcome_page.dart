@@ -4,6 +4,8 @@ import 'package:uni_book/core/components/button/custom_button.dart';
 import 'package:uni_book/core/init/constants/color_constants.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:uni_book/firebase_options.dart';
+import 'package:uni_book/view/authenticate/girisYap/giris_yap_ekrani.dart';
+import 'package:uni_book/view/authenticate/kayitOl/kayit_ol_ekrani.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
@@ -23,7 +25,9 @@ class _WelcomePageState extends State<WelcomePage> {
         if (snapshot.connectionState == ConnectionState.done) {
           return _buildUI(); // Eğer bağlantı tamamlandıysa UI'ı inşa et.
         } else {
-          return const Center(child: CircularProgressIndicator()); // Aksi takdirde yükleme simgesini göster.
+          return const Center(
+              child:
+                  CircularProgressIndicator()); // Aksi takdirde yükleme simgesini göster.
         }
       },
     );
@@ -45,7 +49,10 @@ class _WelcomePageState extends State<WelcomePage> {
               style: TextStyle(color: ColorConstants.primaryColor),
               backgroundColor: ColorConstants.secondaryColor,
               onPressed: () {
-                Navigator.of(context).pushNamedAndRemoveUntil(loginRoute, (route) => false);
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => GirisYapEkrani()),
+                  (route) => false,
+                );
               },
               wrapText: true,
               width: MediaQuery.of(context).size.width * 0.85,
@@ -65,7 +72,10 @@ class _WelcomePageState extends State<WelcomePage> {
               style: TextStyle(color: ColorConstants.secondaryColor),
               backgroundColor: ColorConstants.primaryColor,
               onPressed: () {
-                Navigator.of(context).pushNamedAndRemoveUntil(registerRoute, (route) => false);
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => KayitOlEkrani()),
+                  (route) => false,
+                );
               },
               wrapText: true,
               width: MediaQuery.of(context).size.width * 0.85,

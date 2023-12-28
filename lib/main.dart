@@ -26,7 +26,6 @@ import 'package:firebase_core/firebase_core.dart';
 
 import 'package:uni_book/constants/routes.dart';
 
-
 void main() {
   runApp(const MyApp());
 }
@@ -38,30 +37,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-
       theme: ThemeData(
         primarySwatch: Colors.blue,
         fontFamily: 'Poppins',
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-
       home: const InitApp(),
-      routes: {
-        loginRoute: (context) => const GirisYapEkrani(),
-        registerRoute: (context) => const KayitOlEkrani(),
-        homeRoute: (context) => const HomePage(),
-        verifyEmailRoute: (context) =>
-            const GirisYapEkrani(), // VerifyEmail ile değiş **********
-        welcomeRoute: (context) => const WelcomePage(),
-        cardRoute: (context) => const KimlikKartiYukleme()
-      },
-
     );
   }
 }
-
-
-
 
 class InitApp extends StatelessWidget {
   const InitApp({super.key});
@@ -78,7 +62,7 @@ class InitApp extends StatelessWidget {
             final user = FirebaseAuth.instance.currentUser;
             if (user != null) {
               if (user.emailVerified) {
-                return const WelcomePage(); // HomePage ile degisecek
+                return const HomePage();
               } else {
                 //return const VerifyEmailView();
                 return const WelcomePage();

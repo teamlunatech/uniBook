@@ -9,7 +9,9 @@ import 'package:uni_book/core/init/constants/color_constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:uni_book/utilities/show_error_dialog.dart';
 import 'package:uni_book/constants/routes.dart';
-
+import 'package:uni_book/view/authenticate/kayitOl/kayit_ol_ekrani.dart';
+import 'package:uni_book/view/home/homePage.dart';
+import 'package:uni_book/view/welcomepage/welcome_page.dart';
 
 class GirisYapEkrani extends StatefulWidget {
   const GirisYapEkrani({super.key});
@@ -19,7 +21,6 @@ class GirisYapEkrani extends StatefulWidget {
 }
 
 class _GirisYapEkraniState extends State<GirisYapEkrani> {
-
   late final TextEditingController _email;
   late final TextEditingController _password;
 
@@ -45,40 +46,32 @@ class _GirisYapEkraniState extends State<GirisYapEkrani> {
     _password.text = password;
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
         title: "Giriş Yap",
-
         titleColor: ColorConstants.secondaryColor,
         backgroundColor: ColorConstants.primaryColor,
         leadingIcon: Icons.arrow_back,
         leadingIconColor: ColorConstants.secondaryColor,
         actionsIconColor: ColorConstants.secondaryColor,
         onActionsIconPressed: () {
-          Navigator.of(context)
-              .pushNamedAndRemoveUntil(welcomeRoute, (route) => false);
+          Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => WelcomePage()),
+            (route) => false,
+          );
         },
-
       ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Container(
-
-
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-
-
-
-
-
                   SizedBox(
                     height: MediaQuery.of(context).size.height / 30,
                   ),
@@ -101,17 +94,13 @@ class _GirisYapEkraniState extends State<GirisYapEkrani> {
                   SizedBox(
                     height: MediaQuery.of(context).size.height / 40,
                   ),
-
                   CustomButton(
                     inputText: 'Giriş Yap',
                     style: TextStyle(color: ColorConstants.primaryColor),
                     backgroundColor: ColorConstants.secondaryColor,
-
-
                     wrapText: true,
                     width: MediaQuery.of(context).size.width * 0.85,
-                    height:  MediaQuery.of(context).size.height/13,
-
+                    height: MediaQuery.of(context).size.height / 13,
                     onPressed: () async {
                       final email = _email.text;
                       final password = _password.text;
@@ -123,11 +112,16 @@ class _GirisYapEkraniState extends State<GirisYapEkrani> {
                         );
                         final user = FirebaseAuth.instance.currentUser;
                         if (user?.emailVerified ?? false) {
-                          Navigator.of(context).pushNamedAndRemoveUntil(
-                              homeRoute, (route) => false);
+                          Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(builder: (context) => HomePage()),
+                            (route) => false,
+                          );
                         } else {
-                          Navigator.of(context).pushNamedAndRemoveUntil(
-                              verifyEmailRoute, (route) => false);
+                          Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(
+                                builder: (context) => GirisYapEkrani()),
+                            (route) => false,
+                          );
                         }
                       } on FirebaseAuthException catch (e) {
                         if (e.code == 'user-not-found') {
@@ -141,8 +135,6 @@ class _GirisYapEkraniState extends State<GirisYapEkrani> {
                         await showErrorDialog(context, e.toString());
                       }
                     },
-
-
                     borderRadius: 20,
                     boxShadow: BoxShadow(
                       color: Colors.grey,
@@ -150,28 +142,21 @@ class _GirisYapEkraniState extends State<GirisYapEkrani> {
                       offset: Offset(0, 4),
                     ),
                   ),
-
-                  SizedBox(height: MediaQuery.of(context).size.height/30,),
-
                   SizedBox(
                     height: MediaQuery.of(context).size.height / 30,
                   ),
-
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 30,
+                  ),
                   ClickableText(
                     text: 'şifreni mi unuttun?',
                     onTap: () {
                       print('Metne basıldı!');
                     },
-
-                    style: TextStyle(color: ColorConstants.secondaryColor,decoration: TextDecoration.underline,),
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height/2.5,),
-                  ClickableText(
-                    text: 'Yeni üye misin? Kayıt ol.',
-                    onTap: () {
-                      print('Metne basıldı!');
-                    },
-                    style: TextStyle(color: ColorConstants.secondaryColor,decoration: TextDecoration.underline,),
+                    style: TextStyle(
+                      color: ColorConstants.secondaryColor,
+                      decoration: TextDecoration.underline,
+                    ),
                   ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height / 2.5,
@@ -179,8 +164,24 @@ class _GirisYapEkraniState extends State<GirisYapEkrani> {
                   ClickableText(
                     text: 'Yeni üye misin? Kayıt ol.',
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          registerRoute, (route) => false);
+                      print('Metne basıldı!');
+                    },
+                    style: TextStyle(
+                      color: ColorConstants.secondaryColor,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 2.5,
+                  ),
+                  ClickableText(
+                    text: 'Yeni üye misin? Kayıt ol.',
+                    onTap: () {
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                            builder: (context) => KayitOlEkrani()),
+                        (route) => false,
+                      );
                       print('Metne basıldı!');
                     },
                     style: TextStyle(
@@ -188,7 +189,6 @@ class _GirisYapEkraniState extends State<GirisYapEkrani> {
                       decoration: TextDecoration.underline,
                     ),
                   )
-
                 ],
               ),
             ),

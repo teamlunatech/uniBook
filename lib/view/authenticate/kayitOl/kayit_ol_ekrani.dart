@@ -15,6 +15,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:uni_book/constants/routes.dart';
 import 'package:uni_book/view/authenticate/kayitOl/basarili_kayit_ekrani.dart';
 import 'package:uni_book/view/kimlik_karti_yukleme/kimlik_karti_yukleme.dart';
+import 'package:uni_book/view/welcomepage/welcome_page.dart';
 
 class KayitOlEkrani extends StatefulWidget {
   const KayitOlEkrani({super.key});
@@ -68,8 +69,10 @@ class _KayitOlEkraniState extends State<KayitOlEkrani> {
         leadingIconColor: ColorConstants.secondaryColor,
         actionsIconColor: ColorConstants.secondaryColor,
         onActionsIconPressed: () {
-          Navigator.of(context)
-              .pushNamedAndRemoveUntil(welcomeRoute, (route) => false);
+          Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => WelcomePage()),
+            (route) => false,
+          );
         },
       ),
       body: SingleChildScrollView(

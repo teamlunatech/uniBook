@@ -13,6 +13,7 @@ import 'package:uni_book/core/components/button/custom_button.dart';
 import 'package:uni_book/core/components/navbar/navbar.dart';
 
 import 'package:uni_book/core/init/constants/color_constants.dart';
+import 'package:uni_book/view/welcomepage/welcome_page.dart';
 
 class BasariliKayitEkrani extends StatefulWidget {
   const BasariliKayitEkrani({super.key});
@@ -27,9 +28,7 @@ class _BasariliKayitEkraniState extends State<BasariliKayitEkrani> {
     return Scaffold(
       appBar: CustomAppBar(
         title: "UNIBOOK",
-
         titleColor: ColorConstants.secondaryColor,
-
         backgroundColor: ColorConstants.primaryColor,
         leadingAsset: "lib/assets/icons/app_icon.png",
         actionsIcon: Icons.location_history,
@@ -39,7 +38,6 @@ class _BasariliKayitEkraniState extends State<BasariliKayitEkrani> {
       body: Center(
         child: SingleChildScrollView(
           child: Column(
-
             children: [
               Image.asset('lib/assets/icons/check_box.png'),
               SizedBox(
@@ -52,39 +50,33 @@ class _BasariliKayitEkraniState extends State<BasariliKayitEkrani> {
               SizedBox(
                 height: MediaQuery.sizeOf(context).height / 20,
               ),
-
               CustomButton(
                 inputText: 'Anasayfaya Git',
                 style: TextStyle(color: ColorConstants.primaryColor),
                 backgroundColor: ColorConstants.secondaryColor,
                 onPressed: () {
-    Navigator.of(context)
-        .pushNamedAndRemoveUntil(welcomeRoute, (route) => false);
-
+                  Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => WelcomePage()),
+                    (route) => false,
+                  );
                 },
                 wrapText: true,
                 width: MediaQuery.of(context).size.width * 0.85,
-                height:  MediaQuery.of(context).size.height/13,
-
+                height: MediaQuery.of(context).size.height / 13,
                 borderRadius: 20,
                 boxShadow: BoxShadow(
                   color: Colors.grey,
                   blurRadius: 10,
                   offset: Offset(0, 4),
-    ),
-
-
-
                 ),
-
+              ),
             ],
           ),
         ),
       ),
-
-
-      bottomNavigationBar: CustomBottomNavigationBar(onTabSelected: (int ) {  },),
-
+      bottomNavigationBar: CustomBottomNavigationBar(
+        onTabSelected: (int) {},
+      ),
     );
   }
 }

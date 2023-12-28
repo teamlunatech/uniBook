@@ -8,6 +8,7 @@ import 'package:uni_book/core/components/info/custom_info_container.dart';
 import 'package:uni_book/core/components/navbar/navbar.dart';
 import 'package:uni_book/core/init/constants/color_constants.dart';
 import 'package:uni_book/utilities/show_error_dialog.dart';
+import 'package:uni_book/view/welcomepage/welcome_page.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -79,8 +80,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     final shouldLogout = await showLogOutDialog(context);
                     if (shouldLogout) {
                       await FirebaseAuth.instance.signOut();
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                        welcomeRoute,
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) => WelcomePage()),
                         (_) => false,
                       );
                     }
