@@ -8,7 +8,6 @@ import 'package:uni_book/core/init/constants/color_constants.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:uni_book/utilities/show_error_dialog.dart';
-import 'package:uni_book/constants/routes.dart';
 import 'package:uni_book/view/authenticate/kayitOl/kayit_ol_ekrani.dart';
 import 'package:uni_book/view/home/homePage.dart';
 import 'package:uni_book/view/welcomepage/welcome_page.dart';

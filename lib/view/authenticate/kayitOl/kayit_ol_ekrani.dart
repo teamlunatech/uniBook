@@ -12,7 +12,6 @@ import 'package:uni_book/core/init/constants/color_constants.dart';
 import 'package:uni_book/utilities/show_error_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:uni_book/constants/routes.dart';
 import 'package:uni_book/view/authenticate/kayitOl/basarili_kayit_ekrani.dart';
 import 'package:uni_book/view/kimlik_karti_yukleme/kimlik_karti_yukleme.dart';
 import 'package:uni_book/view/welcomepage/welcome_page.dart';

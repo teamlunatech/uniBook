@@ -7,7 +7,6 @@ import 'package:uni_book/core/components/navbar/navbar.dart';
 import 'package:uni_book/core/components/text_field/custom_email_field.dart';
 import 'package:uni_book/core/components/text_field/password_input_field.dart';
 
-import 'package:uni_book/constants/routes.dart';
 import 'package:uni_book/core/components/appbar/appbar.dart';
 import 'package:uni_book/core/components/button/custom_button.dart';
 import 'package:uni_book/core/components/navbar/navbar.dart';

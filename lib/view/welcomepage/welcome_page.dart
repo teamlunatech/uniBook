@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:uni_book/constants/routes.dart';
 import 'package:uni_book/core/components/button/custom_button.dart';
 import 'package:uni_book/core/init/constants/color_constants.dart';
 import 'package:firebase_core/firebase_core.dart';
