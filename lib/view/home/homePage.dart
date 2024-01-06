@@ -14,7 +14,6 @@ import 'package:uni_book/functions/real_time_get_data.dart';
 import 'package:uni_book/view/booksdetail/books_detail_page.dart';
 import '../../core/init/constants/color_constants.dart';
 
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -76,7 +75,9 @@ class _HomePageState extends State<HomePage> {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              SizedBox(height: 25,),
+              SizedBox(
+                height: 25,
+              ),
               MySearchBar(
                 onSearch: onSearch,
               ),
@@ -88,9 +89,11 @@ class _HomePageState extends State<HomePage> {
                   AssetImage('lib/assets/icons/slider.png'),
                 ],
               ),
-              SizedBox(height: 15,),
+              SizedBox(
+                height: 15,
+              ),
               Expanded(
-               child: GridView.builder(
+                child: GridView.builder(
                   padding: EdgeInsets.all(10),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
@@ -107,7 +110,8 @@ class _HomePageState extends State<HomePage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => BookDetailPage(book), // Pass book data to detail page if needed
+                            builder: (context) => BookDetailPage(
+                                book), // Pass book data to detail page if needed
                           ),
                         );
                       },
@@ -119,6 +123,9 @@ class _HomePageState extends State<HomePage> {
                         text2: "Fiyat: ${book.price}",
                         text3: "Satıcı: ${book.userName}",
                         icon: Icons.favorite_border,
+                        // onPressed: () {
+                        //   RealTimeData().addFavoriteBook(book.BookName);
+                        // },
                       ),
                     );
                   },
@@ -133,9 +140,6 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-
-
-
 class CustomTextWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -148,11 +152,10 @@ class CustomTextWidget extends StatelessWidget {
         child: Text(
           "İyi Okumalar!",
           style: TextStyle(
-            fontFamily: 'PoppinsExtraBoldItalic',
-            fontSize: textSize,
-            fontWeight: FontWeight.w700,
-            color: ColorConstants.secondaryColor
-          ),
+              fontFamily: 'PoppinsExtraBoldItalic',
+              fontSize: textSize,
+              fontWeight: FontWeight.w700,
+              color: ColorConstants.secondaryColor),
         ),
       ),
     );

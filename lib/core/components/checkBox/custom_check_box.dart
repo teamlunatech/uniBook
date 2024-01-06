@@ -24,6 +24,7 @@ class _CustomCheckboxState extends State<CustomCheckbox> {
       leading: Checkbox(
         value: _isChecked,
         onChanged: (bool? value) {
+          print("AAAAAAAAAA");
           setState(() {
             _isChecked = value!;
           });

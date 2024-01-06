@@ -1,25 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:uni_book/classes/Bildirim.dart';
 import 'package:uni_book/core/components/appbar/appbar.dart';
 import 'package:uni_book/core/components/button/custom_main_button.dart';
 import 'package:uni_book/core/components/header_text/custom_header_text.dart';
 import 'package:uni_book/core/components/navbar/navbar.dart';
+import 'package:uni_book/functions/real_time_get_data.dart';
 
 import '../../core/init/constants/color_constants.dart';
 
 class FavoritesPage extends StatefulWidget {
-  const FavoritesPage({super.key});
+  const FavoritesPage({Key? key}) : super(key: key);
 
   @override
   State<FavoritesPage> createState() => _FavoritesPageState();
 }
 
 class _FavoritesPageState extends State<FavoritesPage> {
+  List<Bildirim> favoriteBooks = [];
+
+  @override
+  void initState() {
+    super.initState();
+    loadFavoriteBooks();
+  }
+
+  Future<void> loadFavoriteBooks() async {
+    List<Bildirim> favorites = await RealTimeData.getFavoriteBooks();
+    setState(() {
+      favoriteBooks = favorites;
+      debugPrint(favoriteBooks[0].getBookName());
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
         title: "UNIBOOK",
-        titleColor:  ColorConstants.secondaryColor,
+        titleColor: ColorConstants.secondaryColor,
         backgroundColor: ColorConstants.primaryColor,
         leadingAsset: "lib/assets/icons/app_icon.png",
         actionsIcon: Icons.location_history,
@@ -31,28 +49,34 @@ class _FavoritesPageState extends State<FavoritesPage> {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              SizedBox(height: 25,),
-              SearchBar(),
+              SizedBox(
+                height: 25,
+              ),
+              // Burada istediğiniz arama çubuğunu ekleyebilirsiniz
               CustomHeaderText(text: "Favoriler"),
-              SizedBox(height: 15,),
+              SizedBox(
+                height: 15,
+              ),
               Expanded(
                 child: GridView.builder(
                   padding: EdgeInsets.all(10),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2, // İki sütunlu yapı
-                    crossAxisSpacing: 10, // Yatay aralık
-                    mainAxisSpacing: 10, // Dikey aralık
-                    childAspectRatio: 2 / 2, // Her öğenin boyut oranı
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                    childAspectRatio: 2 / 2,
                   ),
-                  itemCount: 10, // Toplam 10 öğe
+                  itemCount:
+                      favoriteBooks.length, // Favori kitap sayısı kadar öğe
                   itemBuilder: (context, index) {
+                    Bildirim book = favoriteBooks[index];
                     return CustomMainButton(
                       backgroundColor: ColorConstants.secondaryColor,
                       borderRadius: 10,
                       imagePath: "lib/assets/icons/kitapresmi.png",
-                      text1: "Kitap Adı $index",
-                      text2: "Kitap $index",
-                      text3: "Kitap $index",
+                      text1: book.BookName,
+                      text2: "Fiyat: ${book.price}",
+                      text3: "Satıcı: ${book.userName}",
                       icon: Icons.favorite,
                     );
                   },
@@ -62,7 +86,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
           ),
         ),
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(onTabSelected: (int ) {  },),
+      bottomNavigationBar: CustomBottomNavigationBar(onTabSelected: (int) {}),
     );
   }
 }

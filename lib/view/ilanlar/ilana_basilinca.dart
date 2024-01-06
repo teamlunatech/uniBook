@@ -11,6 +11,9 @@ import 'package:uni_book/core/components/navbar/navbar.dart';
 import 'package:uni_book/core/components/text_field/custom_email_field.dart';
 import 'package:uni_book/core/components/text_field/password_input_field.dart';
 import 'package:uni_book/core/init/constants/color_constants.dart';
+import 'package:uni_book/view/ilanlar/ilan_duzenleme.dart';
+import 'package:uni_book/view/ilanlar/ilan_silme.dart';
+
 class AdsDetailPage extends StatefulWidget {
   @override
   State<AdsDetailPage> createState() => _AdsDetailPageState();
@@ -22,7 +25,7 @@ class _AdsDetailPageState extends State<AdsDetailPage> {
     return Scaffold(
       appBar: CustomAppBar(
         title: "UNIBOOK",
-        titleColor:  ColorConstants.secondaryColor,
+        titleColor: ColorConstants.secondaryColor,
         backgroundColor: ColorConstants.primaryColor,
         leadingAsset: "lib/assets/icons/app_icon.png",
         actionsIcon: Icons.location_history,
@@ -33,7 +36,6 @@ class _AdsDetailPageState extends State<AdsDetailPage> {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
-
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               SizedBox(height: 100),
@@ -64,21 +66,27 @@ class _AdsDetailPageState extends State<AdsDetailPage> {
               ),
               SizedBox(height: 16),
               Divider(),
-
               Column(
                 children: [
                   ListTile(
                     leading: Icon(Icons.edit),
                     title: Text('İlan Düzenle'),
                     onTap: () {
-                      // İlan Düzenleme işlevi
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                            builder: (context) => IlanDuzenleme()),
+                        (_) => false,
+                      );
                     },
                   ),
                   ListTile(
                     leading: Icon(Icons.delete),
                     title: Text('İlanı Sil'),
                     onTap: () {
-                      // İlan Silme işlevi
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) => IlanSilme()),
+                        (_) => false,
+                      );
                     },
                   ),
                   ListTile(
@@ -94,7 +102,9 @@ class _AdsDetailPageState extends State<AdsDetailPage> {
           ),
         ),
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(onTabSelected: (int ) {  },),
+      bottomNavigationBar: CustomBottomNavigationBar(
+        onTabSelected: (int) {},
+      ),
     );
   }
 }

@@ -1,10 +1,12 @@
 // real_time_data.dart dosyası
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:uni_book/classes/Bildirim.dart';
 
 class RealTimeData {
-  static Future<void> realTimeGetData(List<Bildirim> allNots, Function(List<Bildirim>) onDataReceived) async {
+  static Future<void> realTimeGetData(
+      List<Bildirim> allNots, Function(List<Bildirim>) onDataReceived) async {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     var _notStream = await firestore
         .collection('books')
@@ -19,7 +21,8 @@ class RealTimeData {
         var price = data['price'];
         var uniName = data['uniName'];
         var uid = data['user_uid']; // UID'yi al
-        var userName = await getUserName(uid); // UID'yi kullanarak kullanıcı adını al
+        var userName =
+            await getUserName(uid); // UID'yi kullanarak kullanıcı adını al
         Bildirim b = Bildirim(price, bookName, uniName, userName);
         //Bildirim b = Bildirim(price, bookName, uniName);
         bildirimListesi.add(b);
@@ -28,24 +31,28 @@ class RealTimeData {
       onDataReceived(bildirimListesi);
     });
   }
-  static Future<String> getUserName(String userUID) async {
-  try {
-    DocumentSnapshot userSnapshot = await FirebaseFirestore.instance.collection('Users').doc(userUID).get();
-    if (userSnapshot.exists) {
-      String name = userSnapshot['name']; 
-      debugPrint(name);
-      return name;
 
-    } else {
-      return "Kullanıcı bulunamadı.";
+  static Future<String> getUserName(String userUID) async {
+    try {
+      DocumentSnapshot userSnapshot = await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(userUID)
+          .get();
+      if (userSnapshot.exists) {
+        String name = userSnapshot['name'];
+        debugPrint(name);
+        return name;
+      } else {
+        return "Kullanıcı bulunamadı.";
+      }
+    } catch (e) {
+      print("Hata: $e");
+      throw Exception('Kullanıcı adı alınamadı.');
     }
-  } catch (e) {
-    print("Hata: $e");
-    throw Exception('Kullanıcı adı alınamadı.');
   }
-}  
-static Future<List<Bildirim>> searchBooks(String query) async {
-  List<Bildirim> searchResults =[];
+
+  static Future<List<Bildirim>> searchBooks(String query) async {
+    List<Bildirim> searchResults = [];
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     final result = await firestore
         .collection('books')
@@ -59,7 +66,7 @@ static Future<List<Bildirim>> searchBooks(String query) async {
       var price = data['price'];
       var uniName = data['uniName'];
       var uid = data['user_uid'];
-    var userName = await getUserName(uid); // null kontrolü ekleyerek
+      var userName = await getUserName(uid); // null kontrolü ekleyerek
       Bildirim b = Bildirim(price, bookName, uniName, userName);
       return b;
     }).toList();
@@ -67,5 +74,112 @@ static Future<List<Bildirim>> searchBooks(String query) async {
     searchResults = await Future.wait(futureResults);
     return searchResults;
   }
-  
+
+  static Future<List<Bildirim>> getFavoriteBooks() async {
+    try {
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
+      final User? user = FirebaseAuth.instance.currentUser;
+
+      if (user != null) {
+        DocumentSnapshot userDoc =
+            await firestore.collection('Users').doc(user.uid).get();
+
+        if (userDoc.exists) {
+          List<String> favoriteBookNames = List<String>.from(
+              (userDoc.data() as Map<String, dynamic>)['favorites'] ?? []);
+
+          List<Bildirim> favoriteBooks = [];
+
+          for (String bookName in favoriteBookNames) {
+            // Fetch book details from the 'books' collection
+            final result = await firestore
+                .collection('books')
+                .where('bookName', isEqualTo: bookName)
+                .get();
+
+            List<Future<Bildirim>> futureResults =
+                result.docs.map((element) async {
+              var data = element.data() as Map<String, dynamic>;
+              var bookName = data['bookName'] as String;
+              var price = data['price'];
+              var uniName = data['uniName'];
+              var uid = data['user_uid'];
+              var userName = await getUserName(uid); // null kontrolü ekleyerek
+              Bildirim b = Bildirim(price, bookName, uniName, userName);
+              return b;
+            }).toList();
+
+            List<Bildirim> booksForName = await Future.wait(futureResults);
+            favoriteBooks.addAll(booksForName);
+          }
+
+          return favoriteBooks;
+        }
+      }
+      return [];
+    } catch (e) {
+      print('Hata: $e');
+      return [];
+    }
+  }
+
+  Future<void> addFavoriteBook(String bookId) async {
+    try {
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
+      final User? user = FirebaseAuth.instance.currentUser;
+      debugPrint(user?.uid);
+      debugPrint(bookId);
+      await firestore.collection('Users').doc(user?.uid).update({
+        'favorites': FieldValue.arrayUnion([bookId]),
+      });
+    } catch (e) {
+      print('Hata: $e');
+    }
+  }
+
+  static Future<List<Bildirim>> getIlanlarim() async {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    List<Bildirim> ilanlarim = [];
+    String currentUserID;
+
+    User? user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      currentUserID = user.uid;
+    } else {
+      throw Exception("Kullanıcı oturum açmamış");
+    }
+
+    try {
+      QuerySnapshot ilanlarSnapshot = await firestore.collection('books').get();
+
+      for (QueryDocumentSnapshot ilanSnapshot in ilanlarSnapshot.docs) {
+        var data = ilanSnapshot.data() as Map<String, dynamic>;
+        var userUID = data['user_uid'] as String;
+
+        if (userUID == currentUserID) {
+          var bookName = data['bookName'] as String;
+          var price = data['price'];
+          var uniName = data['uniName'];
+          var userName = await getUserName(userUID);
+
+          Bildirim ilan = Bildirim(price, bookName, uniName, userName);
+          ilanlarim.add(ilan);
+        }
+      }
+
+      // for (var ilan in ilanlarim) {
+      //   print("Kitap Adı: ${ilan.BookName}");
+      //   print("Fiyat: ${ilan.price}");
+      //   print("Üniversite: ${ilan.uniName}");
+      //   print("Satıcı: ${ilan.userName}");
+      //   print("-------------");
+      // }
+
+      return ilanlarim;
+    } catch (e) {
+      print("Hata: $e");
+      throw Exception('İlanlar alınamadı.');
+    }
+  }
 }
