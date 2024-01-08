@@ -8,7 +8,7 @@ class CustomMainButton extends StatelessWidget {
   final String text1;
   final String text2;
   final String text3;
-  final IconData? icon; 
+  final IconData? icon;
   final VoidCallback? onPressed;
 
   CustomMainButton({
@@ -36,7 +36,8 @@ class CustomMainButton extends StatelessWidget {
           color: backgroundColor,
           borderRadius: BorderRadius.circular(borderRadius),
         ),
-        child: Stack( // Stack widget'ını kullanarak ikonu üstüne yerleştir
+        child: Stack(
+          // Stack widget'ını kullanarak ikonu üstüne yerleştir
           children: [
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -46,7 +47,7 @@ class CustomMainButton extends StatelessWidget {
                   child: Container(
                     color: Colors.white,
                     width: screenWidth / 2,
-                    child: Image.asset(
+                    child: Image.network(
                       imagePath,
                       fit: BoxFit.contain,
                     ),
@@ -55,7 +56,8 @@ class CustomMainButton extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start, // Bu satır değiştirildi
+                    crossAxisAlignment:
+                        CrossAxisAlignment.start, // Bu satır değiştirildi
                     children: [
                       Text(
                         text1,

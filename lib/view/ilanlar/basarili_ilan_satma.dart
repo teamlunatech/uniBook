@@ -6,6 +6,7 @@ import 'package:uni_book/core/components/navbar/navbar.dart';
 import 'package:uni_book/core/components/text_field/custom_email_field.dart';
 import 'package:uni_book/core/components/text_field/password_input_field.dart';
 import 'package:uni_book/core/init/constants/color_constants.dart';
+import 'package:uni_book/view/home/homePage.dart';
 
 class BasariliIlanSatma extends StatefulWidget {
   const BasariliIlanSatma({super.key});
@@ -20,7 +21,7 @@ class _BasariliIlanSatmaState extends State<BasariliIlanSatma> {
     return Scaffold(
       appBar: CustomAppBar(
         title: "UNIBOOK",
-        titleColor:  ColorConstants.secondaryColor,
+        titleColor: ColorConstants.secondaryColor,
         backgroundColor: ColorConstants.primaryColor,
         leadingAsset: "lib/assets/icons/app_icon.png",
         actionsIcon: Icons.location_history,
@@ -30,22 +31,31 @@ class _BasariliIlanSatmaState extends State<BasariliIlanSatma> {
       body: Center(
         child: SingleChildScrollView(
           child: Column(
-
             children: [
               Image.asset('lib/assets/icons/check_box.png'),
-              SizedBox(height: MediaQuery.sizeOf(context).height/20,),
-              Text("İlanı Sattığınıza Çok Sevindik!", style: TextStyle(fontSize: 25),),
-              SizedBox(height: MediaQuery.sizeOf(context).height/20,),
+              SizedBox(
+                height: MediaQuery.sizeOf(context).height / 20,
+              ),
+              Text(
+                "İlanı Sattığınıza Çok Sevindik!",
+                style: TextStyle(fontSize: 25),
+              ),
+              SizedBox(
+                height: MediaQuery.sizeOf(context).height / 20,
+              ),
               CustomButton(
                 inputText: 'İlanı Kaldır',
                 style: TextStyle(color: ColorConstants.primaryColor),
                 backgroundColor: ColorConstants.secondaryColor,
                 onPressed: () {
-                  print('Giriş Yap butonuna basıldı!');
+                  Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => HomePage()),
+                    (_) => false,
+                  );
                 },
                 wrapText: true,
                 width: MediaQuery.of(context).size.width * 0.85,
-                height:  MediaQuery.of(context).size.height/13,
+                height: MediaQuery.of(context).size.height / 13,
                 borderRadius: 20,
                 boxShadow: BoxShadow(
                   color: Colors.grey,
@@ -57,8 +67,9 @@ class _BasariliIlanSatmaState extends State<BasariliIlanSatma> {
           ),
         ),
       ),
-
-      bottomNavigationBar: CustomBottomNavigationBar(onTabSelected: (int ) {  },),
+      bottomNavigationBar: CustomBottomNavigationBar(
+        onTabSelected: (int) {},
+      ),
     );
   }
 }

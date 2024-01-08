@@ -8,6 +8,8 @@ import 'package:uni_book/core/init/constants/color_constants.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:uni_book/utilities/show_error_dialog.dart';
+import 'package:uni_book/view/authenticate/girisYap/forgotpassword.dart';
+import 'package:uni_book/view/authenticate/kayitOl/VerifyPage.dart';
 import 'package:uni_book/view/authenticate/kayitOl/kayit_ol_ekrani.dart';
 import 'package:uni_book/view/home/homePage.dart';
 import 'package:uni_book/view/welcomepage/welcome_page.dart';
@@ -118,7 +120,7 @@ class _GirisYapEkraniState extends State<GirisYapEkrani> {
                         } else {
                           Navigator.of(context).pushAndRemoveUntil(
                             MaterialPageRoute(
-                                builder: (context) => GirisYapEkrani()),
+                                builder: (context) => DogrulamaMailiSayfasi()),
                             (route) => false,
                           );
                         }
@@ -150,20 +152,11 @@ class _GirisYapEkraniState extends State<GirisYapEkrani> {
                   ClickableText(
                     text: 'şifreni mi unuttun?',
                     onTap: () {
-                      print('Metne basıldı!');
-                    },
-                    style: TextStyle(
-                      color: ColorConstants.secondaryColor,
-                      decoration: TextDecoration.underline,
-                    ),
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height / 2.5,
-                  ),
-                  ClickableText(
-                    text: 'Yeni üye misin? Kayıt ol.',
-                    onTap: () {
-                      print('Metne basıldı!');
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                            builder: (context) => SifremiUnuttumSayfasi()),
+                        (route) => false,
+                      );
                     },
                     style: TextStyle(
                       color: ColorConstants.secondaryColor,

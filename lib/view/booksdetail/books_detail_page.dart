@@ -7,6 +7,7 @@ import 'package:uni_book/core/components/button/custom_main_button.dart';
 import 'package:uni_book/core/components/header_text/custom_header_text.dart';
 import 'package:uni_book/core/components/navbar/navbar.dart';
 import 'package:uni_book/core/init/constants/color_constants.dart';
+import 'package:uni_book/view/kullaniciHesap/selleruserprofilepage.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class BookDetailPage extends StatelessWidget {
@@ -23,7 +24,8 @@ class BookDetailPage extends StatelessWidget {
     final String rating = "4.1/5";
     final String price = book.getprice();
     final String description = book.getUniName();
-    final String userUid = book.getUserName();
+    final String userUid = book.getUserUid();
+    final String imageUrl = book.getImageUrl();
     return Scaffold(
       appBar: CustomAppBar(
         title: "UNIBOOK",
@@ -41,7 +43,7 @@ class BookDetailPage extends StatelessWidget {
             SizedBox(
               height: MediaQuery.sizeOf(context).height / 60,
             ),
-            Center(child: Image.asset('lib/assets/icons/kitapresmi.png')),
+            Center(child: Image.network(imageUrl)),
             Center(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -146,7 +148,13 @@ class BookDetailPage extends StatelessWidget {
                       style: TextStyle(color: ColorConstants.secondaryColor),
                       backgroundColor: ColorConstants.primaryColor,
                       onPressed: () {
-                        print('Butona basıldı!');
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                SellerProfilePage(userUid: userUid),
+                          ),
+                        );
                       },
                       wrapText: true,
                       width: 350,

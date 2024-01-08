@@ -88,15 +88,16 @@ class _MyAdsPageState extends State<MyAdsPage> {
                 return CustomMainButton(
                   backgroundColor: ColorConstants.secondaryColor,
                   borderRadius: 10,
-                  imagePath: "lib/assets/icons/kitapresmi.png",
+                  imagePath: book.imageUrl,
                   text1: book.BookName,
                   text2: "Fiyat: ${book.price}",
                   text3: "Satıcı: ${book.userName}",
                   icon: Icons.favorite_border,
                   onPressed: () {
-                    Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (context) => AdsDetailPage()),
-                      (_) => false,
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => AdsDetailPage(book: book),
+                      ),
                     );
                   },
                 );

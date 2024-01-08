@@ -23,7 +23,9 @@ class RealTimeData {
         var uid = data['user_uid']; // UID'yi al
         var userName =
             await getUserName(uid); // UID'yi kullanarak kullanıcı adını al
-        Bildirim b = Bildirim(price, bookName, uniName, userName);
+        var imageUrl = data['book-image'];
+        Bildirim b =
+            Bildirim(price, bookName, uniName, userName, uid, imageUrl);
         //Bildirim b = Bildirim(price, bookName, uniName);
         bildirimListesi.add(b);
       }
@@ -67,7 +69,8 @@ class RealTimeData {
       var uniName = data['uniName'];
       var uid = data['user_uid'];
       var userName = await getUserName(uid); // null kontrolü ekleyerek
-      Bildirim b = Bildirim(price, bookName, uniName, userName);
+      var imageUrl = data['book-image'];
+      Bildirim b = Bildirim(price, bookName, uniName, userName, uid, imageUrl);
       return b;
     }).toList();
 
@@ -105,7 +108,9 @@ class RealTimeData {
               var uniName = data['uniName'];
               var uid = data['user_uid'];
               var userName = await getUserName(uid); // null kontrolü ekleyerek
-              Bildirim b = Bildirim(price, bookName, uniName, userName);
+              var imageUrl = data['book-image'];
+              Bildirim b =
+                  Bildirim(price, bookName, uniName, userName, uid, imageUrl);
               return b;
             }).toList();
 
@@ -162,8 +167,9 @@ class RealTimeData {
           var price = data['price'];
           var uniName = data['uniName'];
           var userName = await getUserName(userUID);
-
-          Bildirim ilan = Bildirim(price, bookName, uniName, userName);
+          var imageUrl = data['book-image'];
+          Bildirim ilan =
+              Bildirim(price, bookName, uniName, userName, userUID, imageUrl);
           ilanlarim.add(ilan);
         }
       }
@@ -180,6 +186,27 @@ class RealTimeData {
     } catch (e) {
       print("Hata: $e");
       throw Exception('İlanlar alınamadı.');
+    }
+  }
+
+  static Future<void> deleteBooksByTitle(String bookName) async {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+    try {
+      // Belirtilen kitap ismine sahip olan tüm kayıtları getir
+      QuerySnapshot result = await firestore
+          .collection('books')
+          .where('bookName', isEqualTo: bookName)
+          .get();
+
+      // Her bir kaydı sil
+      for (QueryDocumentSnapshot document in result.docs) {
+        await document.reference.delete();
+        print('Kitap silindi: ${document.data()}');
+      }
+    } catch (e) {
+      print('Hata: $e');
+      throw Exception('Kitaplar silinemedi.');
     }
   }
 }

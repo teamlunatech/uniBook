@@ -11,7 +11,9 @@ import 'package:uni_book/view/user_report/reportpage.dart';
 import 'package:uni_book/view/welcomepage/welcome_page.dart';
 
 class SellerProfilePage extends StatefulWidget {
-  const SellerProfilePage({super.key});
+  final String userUid;
+
+  const SellerProfilePage({Key? key, required this.userUid}) : super(key: key);
 
   @override
   State<SellerProfilePage> createState() => _SellerProfilePageState();
@@ -20,6 +22,7 @@ class SellerProfilePage extends StatefulWidget {
 class _SellerProfilePageState extends State<SellerProfilePage> {
   String name = "";
   String userEmail = "";
+
   @override
   void initState() {
     super.initState();
@@ -28,8 +31,7 @@ class _SellerProfilePageState extends State<SellerProfilePage> {
 
   Future<void> _fetchUserData() async {
     try {
-      final user = FirebaseAuth.instance.currentUser;
-      final uid = user?.uid;
+      final uid = widget.userUid;
       final userDoc =
           await FirebaseFirestore.instance.collection('Users').doc(uid).get();
 
@@ -72,19 +74,17 @@ class _SellerProfilePageState extends State<SellerProfilePage> {
                 CustomInfoContainer(title: "E-mail", content: userEmail),
                 SizedBox(height: MediaQuery.sizeOf(context).height / 30),
                 CustomButton(
-                  inputText: 'Raporla',
+                  inputText: 'Kullanıcıyı Şikayet Et',
                   style: TextStyle(color: ColorConstants.secondaryColor),
                   backgroundColor: ColorConstants.primaryColor,
                   onPressed: () async {
-                    print('Butona basıldı!');
-                    final shouldLogout = await showLogOutDialog(context);
-                    if (shouldLogout) {
-                      await FirebaseAuth.instance.signOut();
-                      Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(builder: (context) => ReportPage()),
-                        (_) => false,
-                      );
-                    }
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            ReportPage(userUid: widget.userUid),
+                      ),
+                    );
                   },
                   wrapText: true,
                   width: 350,

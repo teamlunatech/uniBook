@@ -73,7 +73,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                     return CustomMainButton(
                       backgroundColor: ColorConstants.secondaryColor,
                       borderRadius: 10,
-                      imagePath: "lib/assets/icons/kitapresmi.png",
+                      imagePath: book.imageUrl,
                       text1: book.BookName,
                       text2: "Fiyat: ${book.price}",
                       text3: "Satıcı: ${book.userName}",

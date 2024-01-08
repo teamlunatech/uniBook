@@ -27,6 +27,7 @@ class _KayitOlEkraniState extends State<KayitOlEkrani> {
   late final TextEditingController _email;
   late final TextEditingController _password;
   late final TextEditingController _name;
+  late final TextEditingController _phoneNumber;
   String imageUrl = '';
 
   @override
@@ -34,6 +35,7 @@ class _KayitOlEkraniState extends State<KayitOlEkrani> {
     _email = TextEditingController();
     _password = TextEditingController();
     _name = TextEditingController();
+    _phoneNumber = TextEditingController();
     super.initState();
   }
 
@@ -42,6 +44,7 @@ class _KayitOlEkraniState extends State<KayitOlEkrani> {
     _email.dispose();
     _password.dispose();
     _name.dispose();
+    _phoneNumber.dispose();
     super.dispose();
   }
 
@@ -55,6 +58,10 @@ class _KayitOlEkraniState extends State<KayitOlEkrani> {
 
   void handlePassword(String password) {
     _password.text = password;
+  }
+
+  void handlePhoneNumber(String phoneNumber) {
+    _phoneNumber.text = phoneNumber;
   }
 
   @override
@@ -106,6 +113,12 @@ class _KayitOlEkraniState extends State<KayitOlEkrani> {
                 onEmailChanged: handleEmail,
               ),
               SizedBox(
+                height: MediaQuery.of(context).size.height / 42,
+              ),
+              PhoneInputField(
+                onPhoneNumberChanged: handlePhoneNumber,
+              ),
+              SizedBox(
                 height: MediaQuery.of(context).size.height / 14,
               ),
               Text(
@@ -143,6 +156,13 @@ class _KayitOlEkraniState extends State<KayitOlEkrani> {
                 style: TextStyle(color: ColorConstants.primaryColor),
                 backgroundColor: ColorConstants.secondaryColor,
                 onPressed: () async {
+                  if (_name.text.isEmpty ||
+                      _email.text.isEmpty ||
+                      _password.text.isEmpty ||
+                      _phoneNumber.text.isEmpty) {
+                    showErrorDialog(context, 'Lütfen tüm alanları doldurun.');
+                    return;
+                  }
                   if (imageUrl.isEmpty) {
                     showErrorDialog(context,
                         'Lütfen kayıt olabilmek için öğrenci kimliğinizi yükleyin.');
@@ -151,6 +171,7 @@ class _KayitOlEkraniState extends State<KayitOlEkrani> {
                   final email = _email.text;
                   final password = _password.text;
                   final name = _name.text;
+                  final phoneNumber = _phoneNumber.text;
                   try {
                     await FirebaseAuth.instance.createUserWithEmailAndPassword(
                       email: email,
@@ -165,6 +186,7 @@ class _KayitOlEkraniState extends State<KayitOlEkrani> {
                       'name': name,
                       'email': email,
                       'student card': imageUrl,
+                      'phone': phoneNumber
                     });
                     await user?.sendEmailVerification();
                     Navigator.of(context).pushAndRemoveUntil(

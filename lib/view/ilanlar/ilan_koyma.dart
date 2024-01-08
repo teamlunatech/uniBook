@@ -28,7 +28,6 @@ class _IlanKoymaState extends State<IlanKoyma> {
   late String _bookName;
   late String _bookContent;
   late String _bookImage;
-  bool _isChecked = false;
 
   ImagePicker imagePicker = ImagePicker();
   XFile? file;
@@ -102,11 +101,6 @@ class _IlanKoymaState extends State<IlanKoyma> {
                 onPressed: () async {
                   file =
                       await imagePicker.pickImage(source: ImageSource.gallery);
-                  if (file != null) {
-                    setState(() {
-                      _isChecked = true;
-                    });
-                  }
                 },
                 wrapText: true,
                 width: 350,
@@ -128,11 +122,6 @@ class _IlanKoymaState extends State<IlanKoyma> {
                 onPressed: () async {
                   file =
                       await imagePicker.pickImage(source: ImageSource.camera);
-                  if (file != null) {
-                    setState(() {
-                      _isChecked = true;
-                    });
-                  }
                 },
                 wrapText: true,
                 width: 350,
@@ -146,9 +135,6 @@ class _IlanKoymaState extends State<IlanKoyma> {
               ),
               SizedBox(
                 height: MediaQuery.sizeOf(context).height / 10,
-              ),
-              CustomCheckbox(
-                isChecked: _isChecked,
               ),
               CustomButton(
                 inputText: 'Tamamla',
