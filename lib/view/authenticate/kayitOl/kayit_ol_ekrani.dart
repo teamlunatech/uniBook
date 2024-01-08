@@ -171,7 +171,7 @@ class _KayitOlEkraniState extends State<KayitOlEkrani> {
                   final email = _email.text;
                   final password = _password.text;
                   final name = _name.text;
-                  final phoneNumber = _phoneNumber.text;
+                  final phoneNumber = _phoneNumber.text.replaceAll('+', '');
                   try {
                     await FirebaseAuth.instance.createUserWithEmailAndPassword(
                       email: email,

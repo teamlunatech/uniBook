@@ -35,7 +35,11 @@ class _PhoneInputFieldState extends State<PhoneInputField> {
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: InternationalPhoneNumberInput(
           keyboardType: TextInputType.number,
-          onInputChanged: (PhoneNumber phoneNumber) {},
+          onInputChanged: (PhoneNumber phoneNumber) {
+            // Update the controller with the entered phone number
+            _phoneController.text = phoneNumber.phoneNumber ?? '';
+            widget.onPhoneNumberChanged(_phoneController.text);
+          },
           countries: const ['TR'],
           maxLength: 13,
           selectorTextStyle: const TextStyle(color: Colors.grey),
