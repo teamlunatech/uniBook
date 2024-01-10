@@ -28,7 +28,6 @@ class _FavoritesPageState extends State<FavoritesPage> {
     List<Bildirim> favorites = await RealTimeData.getFavoriteBooks();
     setState(() {
       favoriteBooks = favorites;
-      debugPrint(favoriteBooks[0].getBookName());
     });
   }
 

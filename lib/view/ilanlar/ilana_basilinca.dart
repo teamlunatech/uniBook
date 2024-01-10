@@ -81,7 +81,8 @@ class _AdsDetailPageState extends State<AdsDetailPage> {
                     onTap: () {
                       Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(
-                            builder: (context) => IlanDuzenleme()),
+                            builder: (context) =>
+                                IlanDuzenleme(book: widget.book)),
                         (_) => false,
                       );
                     },

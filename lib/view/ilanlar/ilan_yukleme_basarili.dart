@@ -20,7 +20,7 @@ class _IlanYuklemeBasariliState extends State<IlanYuklemeBasarili> {
     return Scaffold(
       appBar: CustomAppBar(
         title: "UNIBOOK",
-        titleColor:  ColorConstants.secondaryColor,
+        titleColor: ColorConstants.secondaryColor,
         backgroundColor: ColorConstants.primaryColor,
         leadingAsset: "lib/assets/icons/app_icon.png",
         actionsIcon: Icons.location_history,
@@ -30,12 +30,18 @@ class _IlanYuklemeBasariliState extends State<IlanYuklemeBasarili> {
       body: Center(
         child: SingleChildScrollView(
           child: Column(
-
             children: [
               Image.asset('lib/assets/icons/check_box.png'),
-              SizedBox(height: MediaQuery.sizeOf(context).height/20,),
-              Text("İlanı Yükleme Başarılı!", style: TextStyle(fontSize: 25),),
-              SizedBox(height: MediaQuery.sizeOf(context).height/20,),
+              SizedBox(
+                height: MediaQuery.sizeOf(context).height / 20,
+              ),
+              Text(
+                "İlanı Yükleme Başarılı!",
+                style: TextStyle(fontSize: 25),
+              ),
+              SizedBox(
+                height: MediaQuery.sizeOf(context).height / 20,
+              ),
               CustomButton(
                 inputText: 'Anasayfaya Git',
                 style: TextStyle(color: ColorConstants.primaryColor),
@@ -45,7 +51,7 @@ class _IlanYuklemeBasariliState extends State<IlanYuklemeBasarili> {
                 },
                 wrapText: true,
                 width: MediaQuery.of(context).size.width * 0.85,
-                height:  MediaQuery.of(context).size.height/13,
+                height: MediaQuery.of(context).size.height / 13,
                 borderRadius: 20,
                 boxShadow: BoxShadow(
                   color: Colors.grey,
@@ -57,8 +63,9 @@ class _IlanYuklemeBasariliState extends State<IlanYuklemeBasarili> {
           ),
         ),
       ),
-
-      bottomNavigationBar: CustomBottomNavigationBar(onTabSelected: (int ) {  },),
+      bottomNavigationBar: CustomBottomNavigationBar(
+        onTabSelected: (int) {},
+      ),
     );
   }
 }

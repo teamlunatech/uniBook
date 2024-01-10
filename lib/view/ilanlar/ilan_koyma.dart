@@ -28,6 +28,7 @@ class _IlanKoymaState extends State<IlanKoyma> {
   late String _bookName;
   late String _bookContent;
   late String _bookImage;
+  late String _price;
 
   ImagePicker imagePicker = ImagePicker();
   XFile? file;
@@ -36,6 +37,12 @@ class _IlanKoymaState extends State<IlanKoyma> {
   void setBookName(String bookName) {
     setState(() {
       _bookName = bookName;
+    });
+  }
+
+  void setBookPrice(String bookprice) {
+    setState(() {
+      _price = bookprice;
     });
   }
 
@@ -52,7 +59,7 @@ class _IlanKoymaState extends State<IlanKoyma> {
       if (user != null) {
         await FirebaseFirestore.instance.collection('books').add({
           'bookName': _bookName,
-          'price': "50",
+          'price': _price,
           'uniName': _bookContent,
           'user_uid': user.uid,
           'book-image': _bookImage,
@@ -93,6 +100,8 @@ class _IlanKoymaState extends State<IlanKoyma> {
               AdsInputField(onTextChanged: setBookName),
               SizedBox(height: MediaQuery.of(context).size.height / 50),
               AdsInputField2(onTextChanged: setBookContent),
+              SizedBox(height: MediaQuery.of(context).size.height / 50),
+              AdsInputField3(onTextChanged: setBookPrice),
               SizedBox(height: MediaQuery.of(context).size.height / 50),
               CustomButton(
                 inputText: 'Kitabın görselini galeriden yükle',
