@@ -103,9 +103,13 @@ class _GirisYapEkraniState extends State<GirisYapEkrani> {
                     width: MediaQuery.of(context).size.width * 0.85,
                     height: MediaQuery.of(context).size.height / 13,
                     onPressed: () async {
+                      if (_email.text.isEmpty || _password.text.isEmpty) {
+                        showErrorDialog(
+                            context, 'Lütfen tüm alanları doldurun.');
+                        return;
+                      }
                       final email = _email.text;
                       final password = _password.text;
-                      print("$email, $password");
                       try {
                         await FirebaseAuth.instance.signInWithEmailAndPassword(
                           email: email,

@@ -1,9 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:uni_book/core/components/appbar/appbar.dart';
+import 'package:uni_book/core/components/button/clickable_text.dart';
 import 'package:uni_book/core/components/button/custom_button.dart';
 import 'package:uni_book/core/components/text_field/custom_email_field.dart';
 import 'package:uni_book/core/init/constants/color_constants.dart';
+import 'package:uni_book/utilities/show_error_dialog.dart';
+import 'package:uni_book/view/authenticate/girisYap/giris_yap_ekrani.dart';
 
 class SifremiUnuttumSayfasi extends StatefulWidget {
   const SifremiUnuttumSayfasi({Key? key}) : super(key: key);
@@ -68,6 +71,10 @@ class _SifremiUnuttumSayfasiState extends State<SifremiUnuttumSayfasi> {
               backgroundColor: ColorConstants.secondaryColor,
               onPressed: isButtonEnabled
                   ? () {
+                      if (userEmail.isEmpty) {
+                        showErrorDialog(context, 'Lütfen mail adresi girin.');
+                        return;
+                      }
                       resetPassword();
                     }
                   : null,
@@ -79,6 +86,20 @@ class _SifremiUnuttumSayfasiState extends State<SifremiUnuttumSayfasi> {
                 color: Colors.grey,
                 blurRadius: 10,
                 offset: Offset(0, 4),
+              ),
+            ),
+            SizedBox(height: 20),
+            ClickableText(
+              text: 'Giriş Sayfasına Dön ',
+              onTap: () {
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => GirisYapEkrani()),
+                  (route) => false,
+                );
+              },
+              style: TextStyle(
+                color: ColorConstants.secondaryColor,
+                decoration: TextDecoration.underline,
               ),
             ),
           ],
