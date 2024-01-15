@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:uni_book/core/components/appbar/appbar.dart';
 import 'package:uni_book/core/components/button/custom_main_button.dart';
 import 'package:uni_book/core/init/constants/color_constants.dart';
+import 'package:uni_book/view/authenticate/kayitOl/VerifyPage.dart';
 
 import 'package:uni_book/view/ilanlar/ilan_koyma.dart';
 import 'package:uni_book/view/ilanlar/ilan_silme.dart';
@@ -51,25 +53,57 @@ class InitApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform,
-      ),
+      future: initializeApp(),
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.done:
-            final user = FirebaseAuth.instance.currentUser;
-            if (user != null) {
-              if (user.emailVerified) {
-                return const HomePage();
-              } else {
-                //return const VerifyEmailView();
-                return const WelcomePage();
-              }
-            } else {
-              return const WelcomePage();
-            }
+            return checkUserStatus();
           default:
             return const CircularProgressIndicator();
+        }
+      },
+    );
+  }
+
+  Future<void> initializeApp() async {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  }
+
+  Widget checkUserStatus() {
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      if (user.emailVerified) {
+        return checkUserConfirmationStatus();
+      } else {
+        //return const VerifyEmailView();
+        return DogrulamaMailiSayfasi();
+      }
+    } else {
+      return WelcomePage();
+    }
+  }
+
+  FutureBuilder<DocumentSnapshot> checkUserConfirmationStatus() {
+    return FutureBuilder<DocumentSnapshot>(
+      future: FirebaseFirestore.instance
+          .collection('Users')
+          .doc(FirebaseAuth.instance.currentUser?.uid)
+          .get(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const CircularProgressIndicator();
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else {
+          String isConfirmed = snapshot.data!['isConfirmed'].toString();
+          if (isConfirmed == '0' || isConfirmed.isEmpty) {
+            return const WelcomePage();
+          } else {
+            return const HomePage();
+          }
         }
       },
     );

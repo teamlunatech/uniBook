@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:uni_book/core/components/appbar/appbar.dart';
 import 'package:uni_book/core/components/button/clickable_text.dart';
@@ -45,6 +46,59 @@ class _GirisYapEkraniState extends State<GirisYapEkrani> {
 
   void handlePassword(String password) {
     _password.text = password;
+  }
+
+  Future<void> checkUserStatus(String uid, BuildContext context) async {
+    try {
+      final DocumentSnapshot userSnapshot =
+          await FirebaseFirestore.instance.collection('Users').doc(uid).get();
+
+      if (!userSnapshot.exists) {
+        await FirebaseAuth.instance.signOut();
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => WelcomePage()),
+          (route) => false,
+        );
+        await showErrorDialog(context, 'This account has been banned.');
+      }
+    } catch (e) {
+      print('Error checking user status: $e');
+      // Handle any other errors that may occur during the process
+      await showErrorDialog(context, 'Error checking user status.');
+    }
+  }
+
+  Future<void> signIn(
+      BuildContext context, String email, String password) async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      final user = FirebaseAuth.instance.currentUser;
+      if (user?.emailVerified ?? false) {
+        await checkUserStatus(user!.uid, context);
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => HomePage()),
+          (route) => false,
+        );
+      } else {
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => DogrulamaMailiSayfasi()),
+          (route) => false,
+        );
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        await showErrorDialog(context, 'User not found');
+      } else if (e.code == 'wrong-password') {
+        await showErrorDialog(context, 'Wrong credentials');
+      } else {
+        await showErrorDialog(context, 'Error: ${e.code}');
+      }
+    } catch (e) {
+      await showErrorDialog(context, e.toString());
+    }
   }
 
   @override
@@ -103,42 +157,9 @@ class _GirisYapEkraniState extends State<GirisYapEkrani> {
                     width: MediaQuery.of(context).size.width * 0.85,
                     height: MediaQuery.of(context).size.height / 13,
                     onPressed: () async {
-                      if (_email.text.isEmpty || _password.text.isEmpty) {
-                        showErrorDialog(
-                            context, 'Lütfen tüm alanları doldurun.');
-                        return;
-                      }
                       final email = _email.text;
                       final password = _password.text;
-                      try {
-                        await FirebaseAuth.instance.signInWithEmailAndPassword(
-                          email: email,
-                          password: password,
-                        );
-                        final user = FirebaseAuth.instance.currentUser;
-                        if (user?.emailVerified ?? false) {
-                          Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(builder: (context) => HomePage()),
-                            (route) => false,
-                          );
-                        } else {
-                          Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(
-                                builder: (context) => DogrulamaMailiSayfasi()),
-                            (route) => false,
-                          );
-                        }
-                      } on FirebaseAuthException catch (e) {
-                        if (e.code == 'user-not-found') {
-                          await showErrorDialog(context, 'User not found');
-                        } else if (e.code == 'wrong-password') {
-                          await showErrorDialog(context, 'Wrong credentials');
-                        } else {
-                          await showErrorDialog(context, 'Error: ${e.code}');
-                        }
-                      } catch (e) {
-                        await showErrorDialog(context, e.toString());
-                      }
+                      await signIn(context, email, password);
                     },
                     borderRadius: 20,
                     boxShadow: BoxShadow(
@@ -178,7 +199,6 @@ class _GirisYapEkraniState extends State<GirisYapEkrani> {
                             builder: (context) => KayitOlEkrani()),
                         (route) => false,
                       );
-                      print('Metne basıldı!');
                     },
                     style: TextStyle(
                       color: ColorConstants.secondaryColor,

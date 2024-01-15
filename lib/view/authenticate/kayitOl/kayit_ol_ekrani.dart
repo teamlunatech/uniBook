@@ -64,6 +64,58 @@ class _KayitOlEkraniState extends State<KayitOlEkrani> {
     _phoneNumber.text = phoneNumber;
   }
 
+  Future<void> registerToFireBase() async {
+    if (_name.text.isEmpty ||
+        _email.text.isEmpty ||
+        _password.text.isEmpty ||
+        _phoneNumber.text.isEmpty) {
+      showErrorDialog(context, 'Lütfen tüm alanları doldurun.');
+      return;
+    }
+    if (imageUrl.isEmpty) {
+      showErrorDialog(
+          context, 'Lütfen kayıt olabilmek için öğrenci kimliğinizi yükleyin.');
+      return;
+    }
+    final email = _email.text;
+    final password = _password.text;
+    final name = _name.text;
+    final phoneNumber = _phoneNumber.text.replaceAll('+', '');
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      final user = FirebaseAuth.instance.currentUser;
+      await FirebaseFirestore.instance.collection('Users').doc(user?.uid).set({
+        'name': name,
+        'email': email,
+        'student card': imageUrl,
+        'phone': phoneNumber,
+        'role': 'User',
+        'isConfirmed': 0
+      });
+      await user?.sendEmailVerification();
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => BasariliKayitEkrani()),
+        (route) => false,
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        showErrorDialog(context, 'Weak password');
+      } else if (e.code == 'email-already-in-use') {
+        showErrorDialog(context, 'Email already in use');
+      } else if (e.code == 'invalid-email') {
+        showErrorDialog(context, 'Invalid email');
+      } else {
+        showErrorDialog(context, 'Error: ${e.code}');
+      }
+    } catch (e) {
+      showErrorDialog(context, e.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -155,59 +207,7 @@ class _KayitOlEkraniState extends State<KayitOlEkrani> {
                 inputText: 'Kayıt Ol',
                 style: TextStyle(color: ColorConstants.primaryColor),
                 backgroundColor: ColorConstants.secondaryColor,
-                onPressed: () async {
-                  if (_name.text.isEmpty ||
-                      _email.text.isEmpty ||
-                      _password.text.isEmpty ||
-                      _phoneNumber.text.isEmpty) {
-                    showErrorDialog(context, 'Lütfen tüm alanları doldurun.');
-                    return;
-                  }
-                  if (imageUrl.isEmpty) {
-                    showErrorDialog(context,
-                        'Lütfen kayıt olabilmek için öğrenci kimliğinizi yükleyin.');
-                    return;
-                  }
-                  final email = _email.text;
-                  final password = _password.text;
-                  final name = _name.text;
-                  final phoneNumber = _phoneNumber.text.replaceAll('+', '');
-                  try {
-                    await FirebaseAuth.instance.createUserWithEmailAndPassword(
-                      email: email,
-                      password: password,
-                    );
-
-                    final user = FirebaseAuth.instance.currentUser;
-                    await FirebaseFirestore.instance
-                        .collection('Users')
-                        .doc(user?.uid)
-                        .set({
-                      'name': name,
-                      'email': email,
-                      'student card': imageUrl,
-                      'phone': phoneNumber
-                    });
-                    await user?.sendEmailVerification();
-                    Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                          builder: (context) => BasariliKayitEkrani()),
-                      (route) => false,
-                    );
-                  } on FirebaseAuthException catch (e) {
-                    if (e.code == 'weak-password') {
-                      showErrorDialog(context, 'Weak password');
-                    } else if (e.code == 'email-already-in-use') {
-                      showErrorDialog(context, 'Email already in use');
-                    } else if (e.code == 'invalid-email') {
-                      showErrorDialog(context, 'Invalid email');
-                    } else {
-                      showErrorDialog(context, 'Error: ${e.code}');
-                    }
-                  } catch (e) {
-                    showErrorDialog(context, e.toString());
-                  }
-                },
+                onPressed: registerToFireBase,
                 wrapText: true,
                 width: MediaQuery.of(context).size.width * 0.85,
                 height: MediaQuery.of(context).size.height / 13,
