@@ -59,12 +59,11 @@ class _GirisYapEkraniState extends State<GirisYapEkrani> {
           MaterialPageRoute(builder: (context) => WelcomePage()),
           (route) => false,
         );
-        await showErrorDialog(context, 'This account has been banned.');
+        showErrorDialog(context, 'Bu hesap banlanmıştır.');
       }
     } catch (e) {
-      print('Error checking user status: $e');
       // Handle any other errors that may occur during the process
-      await showErrorDialog(context, 'Error checking user status.');
+      showErrorDialog(context, 'Error checking user status.');
     }
   }
 
@@ -78,10 +77,24 @@ class _GirisYapEkraniState extends State<GirisYapEkrani> {
       final user = FirebaseAuth.instance.currentUser;
       if (user?.emailVerified ?? false) {
         await checkUserStatus(user!.uid, context);
-        Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => HomePage()),
-          (route) => false,
-        );
+        final DocumentSnapshot userSnapshot = await FirebaseFirestore.instance
+            .collection('Users')
+            .doc(user.uid)
+            .get();
+        int isConfirmed = userSnapshot['isConfirmed'];
+
+        if (isConfirmed != 0) {
+          Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => HomePage()),
+            (route) => false,
+          );
+        } else {
+          Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => WelcomePage()),
+            (route) => false,
+          );
+          showErrorDialog(context, 'Kullanıcı henüz doğrulanmadı.');
+        }
       } else {
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => DogrulamaMailiSayfasi()),
@@ -90,14 +103,14 @@ class _GirisYapEkraniState extends State<GirisYapEkrani> {
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        await showErrorDialog(context, 'User not found');
+        showErrorDialog(context, 'User not found');
       } else if (e.code == 'wrong-password') {
-        await showErrorDialog(context, 'Wrong credentials');
+        showErrorDialog(context, 'Wrong credentials');
       } else {
-        await showErrorDialog(context, 'Error: ${e.code}');
+        showErrorDialog(context, 'Error: ${e.code}');
       }
     } catch (e) {
-      await showErrorDialog(context, e.toString());
+      showErrorDialog(context, e.toString());
     }
   }
 
