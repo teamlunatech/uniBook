@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:uni_book/classes/Bildirim.dart';
 import 'package:uni_book/core/components/appbar/appbar.dart';
@@ -29,6 +31,22 @@ class _FavoritesPageState extends State<FavoritesPage> {
     setState(() {
       favoriteBooks = favorites;
     });
+  }
+
+  Future<void> removeFavoriteBook(String bookId) async {
+    try {
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
+      final User? user = FirebaseAuth.instance.currentUser;
+      debugPrint(user?.uid);
+      debugPrint(bookId);
+
+      await firestore.collection('Users').doc(user?.uid).update({
+        'favorites': FieldValue.arrayRemove([bookId]),
+      });
+      await loadFavoriteBooks();
+    } catch (e) {
+      print('Hata: $e');
+    }
   }
 
   @override
@@ -77,6 +95,9 @@ class _FavoritesPageState extends State<FavoritesPage> {
                       text2: "Fiyat: ${book.price}",
                       text3: "Satıcı: ${book.userName}",
                       icon: Icons.favorite_rounded,
+                      iconOnPressed: () {
+                        removeFavoriteBook(book.BookName);
+                      },
                     );
                   },
                 ),
@@ -85,7 +106,6 @@ class _FavoritesPageState extends State<FavoritesPage> {
           ),
         ),
       ),
-
     );
   }
 }

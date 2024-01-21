@@ -6,6 +6,7 @@ import 'package:uni_book/core/components/navbar/navbar.dart';
 import 'package:uni_book/core/components/text_field/custom_email_field.dart';
 import 'package:uni_book/core/components/text_field/password_input_field.dart';
 import 'package:uni_book/core/init/constants/color_constants.dart';
+import 'package:uni_book/main.dart';
 import 'package:uni_book/view/home/homePage.dart';
 
 class BasariliIlanSilme extends StatefulWidget {
@@ -49,7 +50,7 @@ class _BasariliIlanSilmeState extends State<BasariliIlanSilme> {
                 backgroundColor: ColorConstants.secondaryColor,
                 onPressed: () {
                   Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) => HomePage()),
+                    MaterialPageRoute(builder: (context) => MainApp()),
                     (_) => false,
                   );
                 },
@@ -67,7 +68,6 @@ class _BasariliIlanSilmeState extends State<BasariliIlanSilme> {
           ),
         ),
       ),
-
     );
   }
 }

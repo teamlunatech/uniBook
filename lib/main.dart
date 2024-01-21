@@ -146,14 +146,20 @@ class MainApp extends StatelessWidget {
               currentIndex: pageProvider.selectedIndex,
               onTap: pageProvider.selectPage,
               backgroundColor: ColorConstants.primaryColor, // Arka plan rengi
-              selectedItemColor: ColorConstants.secondaryColor, // Seçilen öğe rengi
+              selectedItemColor:
+                  ColorConstants.secondaryColor, // Seçilen öğe rengi
               unselectedItemColor: Colors.grey, // Seçilmemiş öğe rengi
               items: const [
-                BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Ana Sayfa'),
-                BottomNavigationBarItem(icon: Icon(Icons.list), label: 'İlanlarım'),
-                BottomNavigationBarItem(icon: Icon(Icons.add_box), label: 'İlan Koy'),
-                BottomNavigationBarItem(icon: Icon(Icons.favorite), label: 'Favoriler'),
-                BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.home), label: 'Ana Sayfa'),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.list), label: 'İlanlarım'),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.add_box), label: 'İlan Koy'),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.favorite), label: 'Favoriler'),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.person), label: 'Profil'),
               ],
             ),
           );

@@ -1,10 +1,14 @@
 // real_time_data.dart dosyası
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:uni_book/classes/Bildirim.dart';
 
 class RealTimeData {
+  static StreamSubscription<QuerySnapshot>? _notStreamSubscription;
+
   static Future<void> realTimeGetData(
       List<Bildirim> allNots, Function(List<Bildirim>) onDataReceived) async {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -13,7 +17,7 @@ class RealTimeData {
         .orderBy('price', descending: true)
         .snapshots();
 
-    _notStream.listen((event) async {
+    _notStreamSubscription = _notStream.listen((event) async {
       List<Bildirim> bildirimListesi = [];
       for (var element in event.docs) {
         var data = element.data() as Map<String, dynamic>;
@@ -32,6 +36,10 @@ class RealTimeData {
 
       onDataReceived(bildirimListesi);
     });
+  }
+
+  static void cancelRealTimeSubscription() {
+    _notStreamSubscription?.cancel();
   }
 
   static Future<String> getUserName(String userUID) async {
@@ -58,7 +66,8 @@ class RealTimeData {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     final result = await firestore
         .collection('books')
-        .where('bookName', isEqualTo: query)
+        .where('bookName', isGreaterThanOrEqualTo: query.toLowerCase())
+        .where('bookName', isLessThan: query.toLowerCase() + 'z')
         .get();
 
     List<Future<Bildirim>> futureResults = result.docs.map((element) async {

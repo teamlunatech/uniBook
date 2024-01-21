@@ -13,6 +13,7 @@ import 'package:uni_book/core/components/header_text/custom_header_text.dart';
 import 'package:uni_book/core/components/navbar/navbar.dart';
 import 'package:uni_book/core/components/text_field/ads_edit_field.dart';
 import 'package:uni_book/core/init/constants/color_constants.dart';
+import 'package:uni_book/main.dart';
 import 'package:uni_book/utilities/show_error_dialog.dart';
 import 'package:uni_book/view/home/homePage.dart';
 import 'package:uni_book/view/ilanlar/ilan_silme.dart';
@@ -68,7 +69,7 @@ class _IlanKoymaState extends State<IlanKoyma> {
 
         print('Kitap Firestore\'a eklendi.');
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => HomePage()),
+          MaterialPageRoute(builder: (context) => MainApp()),
         );
       } else {
         print('Kullanıcı bulunamadı.');
@@ -187,17 +188,24 @@ class _IlanKoymaState extends State<IlanKoyma> {
     Reference referenceImageToUpload =
         referenceDirImages.child('$fileDateName.jpg');
 
-    // Handle Errors
     try {
       // Store the file
       await referenceImageToUpload.putFile(File(file!.path));
-      // Success: get the downlad url
+
+      // Success: get the download URL
       imageUrl = await referenceImageToUpload.getDownloadURL();
-      setState(() {
-        _bookImage = imageUrl;
-      });
+
+      // Check if the widget is still mounted before updating the state
+      if (mounted) {
+        setState(() {
+          _bookImage = imageUrl;
+        });
+      }
     } catch (e) {
-      showErrorDialog(context, e.toString());
+      // Handle errors gracefully
+      if (mounted) {
+        showErrorDialog(context, e.toString());
+      }
     }
   }
 }

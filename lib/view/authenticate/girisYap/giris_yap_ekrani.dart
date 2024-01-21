@@ -8,6 +8,7 @@ import 'package:uni_book/core/components/text_field/password_input_field.dart';
 import 'package:uni_book/core/init/constants/color_constants.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:uni_book/main.dart';
 import 'package:uni_book/utilities/show_error_dialog.dart';
 import 'package:uni_book/view/authenticate/girisYap/forgotpassword.dart';
 import 'package:uni_book/view/authenticate/kayitOl/VerifyPage.dart';
@@ -85,7 +86,7 @@ class _GirisYapEkraniState extends State<GirisYapEkrani> {
 
         if (isConfirmed != 0) {
           Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => HomePage()),
+            MaterialPageRoute(builder: (context) => MainApp()),
             (route) => false,
           );
         } else {
@@ -96,9 +97,12 @@ class _GirisYapEkraniState extends State<GirisYapEkrani> {
           showErrorDialog(context, 'Kullanıcı henüz doğrulanmadı.');
         }
       } else {
-        Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => DogrulamaMailiSayfasi()),
-          (route) => false,
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                DogrulamaMailiSayfasi(), // Pass book data to detail page if needed
+          ),
         );
       }
     } on FirebaseAuthException catch (e) {
@@ -190,10 +194,12 @@ class _GirisYapEkraniState extends State<GirisYapEkrani> {
                   ClickableText(
                     text: 'şifreni mi unuttun?',
                     onTap: () {
-                      Navigator.of(context).pushAndRemoveUntil(
+                      Navigator.push(
+                        context,
                         MaterialPageRoute(
-                            builder: (context) => SifremiUnuttumSayfasi()),
-                        (route) => false,
+                          builder: (context) =>
+                              SifremiUnuttumSayfasi(), // Pass book data to detail page if needed
+                        ),
                       );
                     },
                     style: TextStyle(
@@ -207,10 +213,12 @@ class _GirisYapEkraniState extends State<GirisYapEkrani> {
                   ClickableText(
                     text: 'Yeni üye misin? Kayıt ol.',
                     onTap: () {
-                      Navigator.of(context).pushAndRemoveUntil(
+                      Navigator.push(
+                        context,
                         MaterialPageRoute(
-                            builder: (context) => KayitOlEkrani()),
-                        (route) => false,
+                          builder: (context) =>
+                              KayitOlEkrani(), // Pass book data to detail page if needed
+                        ),
                       );
                     },
                     style: TextStyle(

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:uni_book/main.dart';
 import 'package:uni_book/view/home/homePage.dart';
 
 import '../../core/components/appbar/appbar.dart';
@@ -35,7 +36,10 @@ class _ReportPageState extends State<ReportPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Kullanıcı Hakkında Bizimle Paylaşmak İstediklerinizi Lütfen Buraya Giriniz.", style: TextStyle(fontSize: 20),),
+            Text(
+              "Kullanıcı Hakkında Bizimle Paylaşmak İstediklerinizi Lütfen Buraya Giriniz.",
+              style: TextStyle(fontSize: 20),
+            ),
             TextField(
               controller: _textFieldController,
               decoration: InputDecoration(
@@ -52,12 +56,9 @@ class _ReportPageState extends State<ReportPage> {
                 String currentUserUid =
                     FirebaseAuth.instance.currentUser?.uid ?? '';
 
-
                 if (enteredText.isNotEmpty) {
                   submitReport(currentUserUid, enteredText);
-                } else {
-
-                }
+                } else {}
               },
               child: Text('Gönder'),
               style: ElevatedButton.styleFrom(
@@ -65,7 +66,6 @@ class _ReportPageState extends State<ReportPage> {
                 minimumSize: Size(190, 50),
               ),
             ),
-
           ],
         ),
       ),
@@ -86,7 +86,7 @@ class _ReportPageState extends State<ReportPage> {
         'timestamp': FieldValue.serverTimestamp(),
       });
       Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => HomePage()),
+        MaterialPageRoute(builder: (context) => MainApp()),
         (route) => false,
       );
       // Optionally, you can show a success message or navigate to another page

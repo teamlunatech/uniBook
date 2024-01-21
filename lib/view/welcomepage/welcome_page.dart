@@ -48,9 +48,12 @@ class _WelcomePageState extends State<WelcomePage> {
               style: TextStyle(color: ColorConstants.primaryColor),
               backgroundColor: ColorConstants.secondaryColor,
               onPressed: () {
-                Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (context) => GirisYapEkrani()),
-                  (route) => false,
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        GirisYapEkrani(), // Pass book data to detail page if needed
+                  ),
                 );
               },
               wrapText: true,
@@ -71,9 +74,12 @@ class _WelcomePageState extends State<WelcomePage> {
               style: TextStyle(color: ColorConstants.secondaryColor),
               backgroundColor: ColorConstants.primaryColor,
               onPressed: () {
-                Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (context) => KayitOlEkrani()),
-                  (route) => false,
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        KayitOlEkrani(), // Pass book data to detail page if needed
+                  ),
                 );
               },
               wrapText: true,

@@ -36,6 +36,12 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  @override
+  void dispose() {
+    RealTimeData.cancelRealTimeSubscription();
+    super.dispose();
+  }
+
   void onSearch(String text) async {
     if (text.isEmpty) {
       setState(() {
@@ -99,7 +105,7 @@ class _HomePageState extends State<HomePage> {
                     crossAxisCount: 2,
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10,
-                    childAspectRatio: 2 / 2,
+                    childAspectRatio: 0.7,
                   ),
                   itemCount: allNots.length,
                   itemBuilder: (context, index) {
@@ -123,9 +129,9 @@ class _HomePageState extends State<HomePage> {
                         text2: "Fiyat: ${book.price}",
                         text3: "Satıcı: ${book.userName}",
                         icon: Icons.favorite_border,
-                        iconOnPressed:(){
+                        iconOnPressed: () {
                           RealTimeData().addFavoriteBook(book.BookName);
-                        } ,
+                        },
                         // onPressed: () {
                         //   RealTimeData().addFavoriteBook(book.BookName);
                         // },
@@ -138,7 +144,6 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-
     );
   }
 }
@@ -188,7 +193,7 @@ class MyGridPage extends StatelessWidget {
           crossAxisCount: 2,
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
-          childAspectRatio: 3 / 2,
+          childAspectRatio: 0.7,
         ),
         itemCount: searchResults.length,
         itemBuilder: (context, index) {
@@ -197,7 +202,7 @@ class MyGridPage extends StatelessWidget {
           return CustomMainButton(
             backgroundColor: ColorConstants.secondaryColor,
             borderRadius: 10,
-            imagePath: "lib/assets/icons/kitapresmi.png",
+            imagePath: book.imageUrl,
             text1: book.BookName,
             text2: "Fiyat: ${book.price}",
             text3: "Satıcı: ${book.userName}",
@@ -209,7 +214,6 @@ class MyGridPage extends StatelessWidget {
           );
         },
       ),
-
     );
   }
 }
