@@ -63,9 +63,7 @@ class _IlanYuklemeBasariliState extends State<IlanYuklemeBasarili> {
           ),
         ),
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(
-        onTabSelected: (int) {},
-      ),
+
     );
   }
 }

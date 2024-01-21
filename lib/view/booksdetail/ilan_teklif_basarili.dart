@@ -58,7 +58,7 @@ class _BasariliIlanEkraniState extends State<BasariliIlanEkrani> {
         ),
       ),
 
-      bottomNavigationBar: CustomBottomNavigationBar(onTabSelected: (int ) {  },),
+
     );
   }
 }

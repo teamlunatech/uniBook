@@ -73,9 +73,7 @@ class _BasariliKayitEkraniState extends State<BasariliKayitEkrani> {
           ),
         ),
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(
-        onTabSelected: (int) {},
-      ),
+
     );
   }
 }

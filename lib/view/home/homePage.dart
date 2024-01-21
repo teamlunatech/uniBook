@@ -123,6 +123,9 @@ class _HomePageState extends State<HomePage> {
                         text2: "Fiyat: ${book.price}",
                         text3: "Satıcı: ${book.userName}",
                         icon: Icons.favorite_border,
+                        iconOnPressed:(){
+                          RealTimeData().addFavoriteBook(book.BookName);
+                        } ,
                         // onPressed: () {
                         //   RealTimeData().addFavoriteBook(book.BookName);
                         // },
@@ -135,7 +138,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(onTabSelected: (int) {}),
+
     );
   }
 }
@@ -199,10 +202,14 @@ class MyGridPage extends StatelessWidget {
             text2: "Fiyat: ${book.price}",
             text3: "Satıcı: ${book.userName}",
             icon: Icons.favorite_border,
+            iconOnPressed: () {
+              RealTimeData().addFavoriteBook(book.BookName);
+              print("object");
+            },
           );
         },
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(onTabSelected: (int) {}),
+
     );
   }
 }

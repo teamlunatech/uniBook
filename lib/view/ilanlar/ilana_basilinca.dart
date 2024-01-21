@@ -116,9 +116,7 @@ class _AdsDetailPageState extends State<AdsDetailPage> {
           ),
         ),
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(
-        onTabSelected: (int) {},
-      ),
+
     );
   }
 }

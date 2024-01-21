@@ -60,7 +60,7 @@ class ProfileEditPage extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(onTabSelected: (int ) {  },),
+
     );
   }
 

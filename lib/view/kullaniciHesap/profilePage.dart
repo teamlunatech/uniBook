@@ -100,9 +100,7 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ),
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(
-        onTabSelected: (int) {},
-      ),
+
     );
   }
 }

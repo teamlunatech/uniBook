@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:uni_book/classes/Bildirim.dart';
 import 'package:uni_book/core/components/appbar/appbar.dart';
 import 'package:uni_book/core/components/button/clickable_text.dart';
@@ -22,6 +21,7 @@ class MyAdsPage extends StatefulWidget {
 
 class _MyAdsPageState extends State<MyAdsPage> {
   late Future<List<Bildirim>> allAdsFuture;
+
   @override
   void initState() {
     super.initState();
@@ -44,7 +44,9 @@ class _MyAdsPageState extends State<MyAdsPage> {
         future: allAdsFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator();
+            return Center(
+              child: CircularProgressIndicator(),
+            );
           } else if (snapshot.hasError) {
             return Center(
               child: Text('Error: ${snapshot.error}'),
@@ -74,7 +76,7 @@ class _MyAdsPageState extends State<MyAdsPage> {
             List<Bildirim> allAds = snapshot.data!;
 
             return GridView.builder(
-              padding: EdgeInsets.all(10),
+              padding: EdgeInsets.all(15),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 crossAxisSpacing: 10,
@@ -105,9 +107,6 @@ class _MyAdsPageState extends State<MyAdsPage> {
             );
           }
         },
-      ),
-      bottomNavigationBar: CustomBottomNavigationBar(
-        onTabSelected: (int) {},
       ),
     );
   }

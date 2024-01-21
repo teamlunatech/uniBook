@@ -74,9 +74,7 @@ class _IlanSilmeState extends State<IlanSilme> {
           ),
         ),
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(
-        onTabSelected: (int) {},
-      ),
+
     );
   }
 }

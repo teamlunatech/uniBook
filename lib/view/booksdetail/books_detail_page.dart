@@ -43,7 +43,15 @@ class BookDetailPage extends StatelessWidget {
             SizedBox(
               height: MediaQuery.sizeOf(context).height / 60,
             ),
-            Center(child: Image.network(imageUrl)),
+            Center(
+              child: Image.network(
+                imageUrl,
+                width: MediaQuery.of(context).size.width * 0.5, // Ekran genişliğinin yarısı kadar genişlik
+                height: MediaQuery.of(context).size.height * 0.5, // Ekran yüksekliğinin %20'si kadar yükseklik
+              ),
+            ),
+
+
             Center(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -56,50 +64,37 @@ class BookDetailPage extends StatelessWidget {
                 ),
               ),
             ),
+
+
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text(
-                "Author: $author",
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 18,
+              padding: const EdgeInsets.all(16.0),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0), // Yatay ve dikey iç boşluğu ayarlayın
+                decoration: BoxDecoration(
+                  color: ColorConstants.primaryColor, // Container rengini ayarlayın
+                  borderRadius: BorderRadius.circular(10.0), // Kenar yuvarlatma
+                  border: Border.all(
+                    color: ColorConstants.secondaryColor, // Kenar rengi
+                    width: 2.0, // Kenar kalınlığı
+                  ),
+                ),
+                child: Text(
+                  "FİYAT: $price TL",
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: ColorConstants.secondaryColor, // Yazı rengi
+                  ),
+                  textAlign: TextAlign.end, // Metni yatayda ortala
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text(
-                "Category: $category",
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.grey[600],
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text(
-                "Rating: $rating",
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.grey[600],
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text(
-                "Pricing: $price",
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.grey[600],
-                ),
-              ),
-            ),
+
+
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
-                "Description:",
+                "İLAN AÇIKLAMASI:",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
@@ -173,9 +168,7 @@ class BookDetailPage extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(
-        onTabSelected: (int) {},
-      ),
+
     );
   }
 

@@ -67,9 +67,7 @@ class _BasariliIlanSatmaState extends State<BasariliIlanSatma> {
           ),
         ),
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(
-        onTabSelected: (int) {},
-      ),
+
     );
   }
 }

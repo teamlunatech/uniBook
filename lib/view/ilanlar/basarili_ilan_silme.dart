@@ -67,9 +67,7 @@ class _BasariliIlanSilmeState extends State<BasariliIlanSilme> {
           ),
         ),
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(
-        onTabSelected: (int) {},
-      ),
+
     );
   }
 }

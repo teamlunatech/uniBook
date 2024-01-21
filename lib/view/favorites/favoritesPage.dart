@@ -76,7 +76,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                       text1: book.BookName,
                       text2: "Fiyat: ${book.price}",
                       text3: "Satıcı: ${book.userName}",
-                      icon: Icons.favorite,
+                      icon: Icons.favorite_rounded,
                     );
                   },
                 ),
@@ -85,7 +85,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
           ),
         ),
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(onTabSelected: (int) {}),
+
     );
   }
 }

@@ -101,9 +101,7 @@ class _SellerProfilePageState extends State<SellerProfilePage> {
           ),
         ),
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(
-        onTabSelected: (int) {},
-      ),
+
     );
   }
 }

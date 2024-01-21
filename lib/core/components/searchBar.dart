@@ -24,8 +24,9 @@ class _MySearchBarState extends State<MySearchBar> {
           prefixIcon: IconButton(
             icon: Icon(Icons.search, color: ColorConstants.secondaryColor),
             onPressed: () {
-              // Prefix icona tıklanınca arama yap
-              widget.onSearch(_searchController.text);
+              // Arama metnini küçük harfe dönüştür ve ara
+              String searchQuery = _searchController.text.toLowerCase();
+              widget.onSearch(searchQuery);
             },
           ),
           suffixIcon: IconButton(
@@ -52,4 +53,3 @@ class _MySearchBarState extends State<MySearchBar> {
     );
   }
 }
-

@@ -115,9 +115,7 @@ class _IlanDuzenlemeState extends State<IlanDuzenleme> {
           ),
         ),
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(
-        onTabSelected: (int) {},
-      ),
+
     );
   }
 }

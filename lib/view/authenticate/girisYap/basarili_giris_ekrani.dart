@@ -79,9 +79,7 @@ class _BasariliGirisEkraniState extends State<BasariliGirisEkrani> {
         ),
       ),
 
-      bottomNavigationBar: CustomBottomNavigationBar(
-        onTabSelected: (int) {},
-      ),
+
 
     );
   }
