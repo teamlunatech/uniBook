@@ -116,11 +116,11 @@ class InitApp extends StatelessWidget {
           if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
           }
-          String isConfirmed = snapshot.data?.get('isConfirmed').toString() ?? '0';
-          if (isConfirmed == '0' || isConfirmed.isEmpty) {
+          int? isConfirmed = snapshot.data!['isConfirmed'] as int?;
+          if (isConfirmed == 0 || isConfirmed == null) {
             return const WelcomePage();
           } else {
-            return const MainApp();
+            return const HomePage();
           }
         } else {
           return const CircularProgressIndicator();
