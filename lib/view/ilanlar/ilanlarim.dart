@@ -81,7 +81,7 @@ class _MyAdsPageState extends State<MyAdsPage> {
                 crossAxisCount: 2,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
-                childAspectRatio: 3 / 2,
+                childAspectRatio: 0.7,
               ),
               itemCount: allAds.length,
               itemBuilder: (context, index) {
