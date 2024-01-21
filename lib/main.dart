@@ -120,7 +120,7 @@ class InitApp extends StatelessWidget {
           if (isConfirmed == 0 || isConfirmed == null) {
             return const WelcomePage();
           } else {
-            return const HomePage();
+            return const MainPage();
           }
         } else {
           return const CircularProgressIndicator();
